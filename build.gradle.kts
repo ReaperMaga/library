@@ -12,8 +12,6 @@ allprojects {
 }
 subprojects {
     group = "dev.reapermaga.library"
-
-
 }
 
 
