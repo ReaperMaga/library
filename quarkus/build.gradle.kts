@@ -1,4 +1,8 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
+    kotlin("jvm") version "2.0.21"
     kotlin("plugin.allopen") version "2.0.21"
     id("io.quarkus") version "3.16.3"
 }
@@ -37,4 +41,9 @@ allOpen {
     annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
-
+tasks.withType<KotlinCompile> {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+        javaParameters.set(true)
+    }
+}
