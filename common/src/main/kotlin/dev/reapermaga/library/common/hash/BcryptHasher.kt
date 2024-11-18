@@ -1,4 +1,4 @@
-package dev.reapermaga.library.quarkus.hash
+package dev.reapermaga.library.common.hash
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 

@@ -24,7 +24,6 @@ dependencies {
     implementation("io.quarkus:quarkus-hibernate-validator")
     implementation("io.quarkus:quarkus-rest")
     implementation("io.quarkus:quarkus-rest-jackson")
-    implementation("at.favre.lib:bcrypt:0.10.2")
     testImplementation("io.quarkus:quarkus-junit5")
 }
 
