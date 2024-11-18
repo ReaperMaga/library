@@ -5,6 +5,7 @@ plugins {
 version = "0.1.0"
 
 dependencies {
+    implementation("at.favre.lib:bcrypt:0.10.2")
     testImplementation(kotlin("test"))
 }
 
