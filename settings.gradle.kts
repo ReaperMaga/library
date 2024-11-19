@@ -1,6 +1,5 @@
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-    id("maven-publish")
 }
 rootProject.name = "library"
 include("common", "quarkus")
