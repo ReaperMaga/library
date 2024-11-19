@@ -11,3 +11,7 @@ pluginManagement {
     }
 }
 rootProject.name = "quarkus"
+
+repositories {
+    mavenLocal()
+}
