@@ -6,11 +6,9 @@ plugins {
 group = "dev.reapermaga"
 version = "0.1.0"
 
-allprojects {
-    java {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 subprojects {
