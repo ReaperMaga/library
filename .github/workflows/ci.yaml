@@ -23,6 +23,6 @@ jobs:
         run: ./gradlew test --parallel
       - name: Publish
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            PKG_TOKEN: ${{ secrets.PKG_TOKEN }}
             GITHUB_ACTOR: ${{ github.actor }}
         run: ./gradlew publish --parallel
