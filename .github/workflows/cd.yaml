@@ -26,4 +26,4 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USER: ${{ github.actor }}
-        run: ./gradlew publish --parallel
+        run: ./gradlew publish --parallel --continue
