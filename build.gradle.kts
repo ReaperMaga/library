@@ -14,7 +14,7 @@ allprojects {
 }
 
 subprojects {
-    group = "com.github.reapermaga"
+    group = "com.github.reapermaga.library"
     apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
@@ -23,12 +23,19 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    publishing {
+    configure<PublishingExtension> {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/reapermaga/library")
+                credentials {
+                    username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                    password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
         publications {
-            create<MavenPublication>("maven") {
-                groupId = project.group.toString()
-                artifactId = project.name
-                version = project.version.toString()
+            register<MavenPublication>("gpr") {
                 from(components["java"])
             }
         }
