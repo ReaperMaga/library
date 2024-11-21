@@ -1,7 +1,9 @@
-name: CI
+name: CD
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -20,5 +22,8 @@ jobs:
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: Test
-        run: ./gradlew test --parallel
+      - name: Publish
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USER: ${{ github.actor }}
+        run: ./gradlew publish --parallel
