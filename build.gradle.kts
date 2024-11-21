@@ -3,7 +3,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "dev.reapermaga"
+group = "com.github.reapermaga"
 version = "0.1.0"
 
 allprojects {
@@ -14,7 +14,7 @@ allprojects {
 }
 
 subprojects {
-    group = "dev.reapermaga.library"
+    group = "com.github.reapermaga.library"
     apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 

@@ -1,4 +1,4 @@
-package dev.reapermaga.library.common.repository
+package com.github.reapermaga.library.common.repository
 
 interface Repository<T, ID> {
 

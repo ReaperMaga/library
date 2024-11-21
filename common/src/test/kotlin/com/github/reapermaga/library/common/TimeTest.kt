@@ -1,4 +1,4 @@
-package dev.reapermaga.library.common
+package com.github.reapermaga.library.common
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

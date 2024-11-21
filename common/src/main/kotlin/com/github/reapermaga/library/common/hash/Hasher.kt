@@ -1,4 +1,4 @@
-package dev.reapermaga.library.common.hash
+package com.github.reapermaga.library.common.hash
 
 interface Hasher {
 
