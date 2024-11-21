@@ -1,4 +1,4 @@
-package dev.reapermaga.library.quarkus.exception
+package com.github.reapermaga.library.quarkus.exception
 
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper
 

@@ -7,9 +7,12 @@ plugins {
     id("io.quarkus") version "3.16.3"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
+
+
+tasks.withType<GenerateModuleMetadata> {
+    // The value 'enforced-platform' is provided in the validation
+    // error message you got
+    suppressedValidationErrors.add("enforced-platform")
 }
 
 val quarkusPlatformGroupId : String by project

@@ -1,8 +1,8 @@
-package dev.reapermaga.library.common
+package com.github.reapermaga.library.common
 
-import dev.reapermaga.library.common.repository.LocalId
-import dev.reapermaga.library.common.repository.LocalRepository
-import dev.reapermaga.library.common.repository.Repository
+import com.github.reapermaga.library.common.repository.LocalId
+import com.github.reapermaga.library.common.repository.LocalRepository
+import com.github.reapermaga.library.common.repository.Repository
 import org.junit.jupiter.api.Test
 
 class RepositoryTest {

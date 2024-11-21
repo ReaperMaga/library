@@ -1,6 +1,6 @@
-package dev.reapermaga.library.quarkus.exception
+package com.github.reapermaga.library.quarkus.exception
 
-import dev.reapermaga.library.quarkus.createRestResponse
+import com.github.reapermaga.library.quarkus.createRestResponse
 
 data class ExceptionHttpResponse(val code : Int, val message : String)
 

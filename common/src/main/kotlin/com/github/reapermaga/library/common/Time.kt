@@ -1,4 +1,4 @@
-package dev.reapermaga.library.common
+package com.github.reapermaga.library.common
 
 fun Number.secondsTo2Digits(): String {
     val seconds = this.toLong()

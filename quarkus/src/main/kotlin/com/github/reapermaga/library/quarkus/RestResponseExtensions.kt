@@ -1,4 +1,4 @@
-package dev.reapermaga.library.quarkus
+package com.github.reapermaga.library.quarkus
 
 import org.jboss.resteasy.reactive.RestResponse
 
