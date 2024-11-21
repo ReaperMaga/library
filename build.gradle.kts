@@ -14,7 +14,7 @@ allprojects {
 }
 
 subprojects {
-    group = "com.github.reapermaga.library"
+    group = "com.github.reapermaga"
     apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
