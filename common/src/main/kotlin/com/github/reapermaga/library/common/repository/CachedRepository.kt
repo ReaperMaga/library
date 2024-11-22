@@ -50,6 +50,4 @@ open class CachedRepository<T, ID>(val repository : Repository<T, ID>):Repositor
     fun findAllCached() : Collection<T> {
         return cache.values
     }
-
-    data class CacheOptions(val expireAfterWrite : Long)
 }
