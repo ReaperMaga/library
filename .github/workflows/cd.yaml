@@ -23,6 +23,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Publish
+        continue-on-error: true
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USER: ${{ github.actor }}
