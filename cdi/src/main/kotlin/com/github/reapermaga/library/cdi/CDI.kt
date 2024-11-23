@@ -34,4 +34,3 @@ class CDI {
     }
 }
 
-data class CDIEntity(val instance: Any)

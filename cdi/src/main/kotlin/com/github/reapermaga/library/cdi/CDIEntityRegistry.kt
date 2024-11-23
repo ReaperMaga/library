@@ -39,3 +39,4 @@ class CDIEntityRegistry {
         return entities.find { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
     }
 }
+data class CDIEntity(val instance: Any)
