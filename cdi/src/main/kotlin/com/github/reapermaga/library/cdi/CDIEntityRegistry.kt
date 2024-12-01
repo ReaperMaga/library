@@ -21,7 +21,7 @@ class CDIEntityRegistry {
                     params.add(param)
                 }
             }
-            register(constructor.newInstance(params))
+            register(constructor.newInstance(*params.toTypedArray()))
         } else {
             register(constructor.newInstance())
         }
