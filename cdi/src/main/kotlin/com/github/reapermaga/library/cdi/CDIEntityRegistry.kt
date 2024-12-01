@@ -1,6 +1,5 @@
 package com.github.reapermaga.library.cdi
 
-import java.lang.reflect.Parameter
 
 class CDIEntityRegistry {
 

@@ -2,15 +2,17 @@ package com.github.reapermaga.library.cdi
 
 import com.github.reapermaga.library.cdi.processor.CDIProcessor
 import com.github.reapermaga.library.cdi.processor.InjectProcessor
+import com.github.reapermaga.library.cdi.processor.PostStartupProcessor
 import com.github.reapermaga.library.cdi.processor.StartupProcessor
 
 class CDI {
 
-    private val entityRegistry: CDIEntityRegistry = CDIEntityRegistry()
+    val entityRegistry: CDIEntityRegistry = CDIEntityRegistry()
 
     private val processors: MutableList<CDIProcessor> = mutableListOf(
         InjectProcessor(entityRegistry),
-        StartupProcessor(entityRegistry)
+        StartupProcessor(entityRegistry),
+        PostStartupProcessor(entityRegistry)
     )
 
     fun registerProcessor(processor: CDIProcessor) {
