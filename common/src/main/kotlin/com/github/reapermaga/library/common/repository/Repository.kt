@@ -23,19 +23,19 @@ interface Repository<T, ID> {
 
 interface AsyncRepository<T, ID> {
 
-    suspend fun persistAsync(entity: T): CompletableFuture<Void>
+    fun persistAsync(entity: T): CompletableFuture<Void>
 
-    suspend fun saveAsync(entity: T): CompletableFuture<Void>
+    fun saveAsync(entity: T): CompletableFuture<Void>
 
-    suspend fun findByIdAsync(id: ID): CompletableFuture<T?>
+    fun findByIdAsync(id: ID): CompletableFuture<T?>
 
-    suspend fun findAllAsync(): CompletableFuture<Collection<T>>
+    fun findAllAsync(): CompletableFuture<Collection<T>>
 
-    suspend fun deleteByIdAsync(id: ID): CompletableFuture<Long>
+    fun deleteByIdAsync(id: ID): CompletableFuture<Long>
 
-    suspend fun deleteAllAsync(): CompletableFuture<Long>
+    fun deleteAllAsync(): CompletableFuture<Long>
 
-    suspend fun existsByIdAsync(id: ID): CompletableFuture<Boolean>
+    fun existsByIdAsync(id: ID): CompletableFuture<Boolean>
 
-    suspend fun countAsync(): CompletableFuture<Long>
+    fun countAsync(): CompletableFuture<Long>
 }
