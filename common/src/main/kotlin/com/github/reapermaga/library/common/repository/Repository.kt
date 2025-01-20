@@ -1,5 +1,7 @@
 package com.github.reapermaga.library.common.repository
 
+import java.util.concurrent.CompletableFuture
+
 interface Repository<T, ID> {
 
     fun persist(entity: T)
@@ -21,19 +23,19 @@ interface Repository<T, ID> {
 
 interface AsyncRepository<T, ID> {
 
-    suspend fun persist(entity: T)
+    suspend fun persistAsync(entity: T): CompletableFuture<Void>
 
-    suspend fun save(entity: T)
+    suspend fun saveAsync(entity: T): CompletableFuture<Void>
 
-    suspend fun findById(id: ID): T?
+    suspend fun findByIdAsync(id: ID): CompletableFuture<T?>
 
-    suspend fun findAll(): Collection<T>
+    suspend fun findAllAsync(): CompletableFuture<Collection<T>>
 
-    suspend fun deleteById(id: ID)
+    suspend fun deleteByIdAsync(id: ID): CompletableFuture<Long>
 
-    suspend fun deleteAll()
+    suspend fun deleteAllAsync(): CompletableFuture<Long>
 
-    suspend fun existsById(id: ID): Boolean
+    suspend fun existsByIdAsync(id: ID): CompletableFuture<Boolean>
 
-    suspend fun count(): Long
+    suspend fun countAsync(): CompletableFuture<Long>
 }
