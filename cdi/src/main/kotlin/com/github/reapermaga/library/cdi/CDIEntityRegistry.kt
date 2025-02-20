@@ -37,5 +37,9 @@ class CDIEntityRegistry {
     fun getEntity(entityClass: Class<*>): CDIEntity? {
         return entities.find { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
     }
+
+    fun getEntities(entityClass: Class<*>): List<CDIEntity> {
+        return entities.filter { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
+    }
 }
 data class CDIEntity(val instance: Any)

@@ -32,7 +32,6 @@ class CDI {
                 processor.process(entity)
             }
         }
-
     }
 }
 
