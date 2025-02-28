@@ -41,3 +41,7 @@ fun Long.millisToTimeFormat(): String {
         if (seconds >= 0) append("${seconds}s")
     }.trim()
 }
+
+fun Number.secondsToTimeFormat(): String {
+    return (this.toLong()*1000).millisToTimeFormat()
+}
