@@ -1,5 +1,11 @@
 package com.github.reapermaga.library.common
 
+
+/**
+ * Converts seconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 02:10
+ */
 fun Number.secondsTo2Digits(): String {
     val seconds = this.toLong()
     val minutes = (seconds % 3600) / 60
@@ -7,6 +13,11 @@ fun Number.secondsTo2Digits(): String {
     return String.format("%02d:%02d", minutes, remainingSeconds)
 }
 
+/**
+ * Converts seconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 02:10:05
+ */
 fun Number.secondsTo3Digits(): String {
     val seconds = this.toLong()
     val hours = seconds / 3600
@@ -15,14 +26,29 @@ fun Number.secondsTo3Digits(): String {
     return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
 }
 
+/**
+ * Converts milliseconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 05:01
+ */
 fun Long.millisTo2Digits(): String {
     return (this / 1000).secondsTo2Digits()
 }
 
+/**
+ * Converts milliseconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 02:10:05
+ */
 fun Long.millisTo3Digits(): String {
     return (this / 1000).secondsTo3Digits()
 }
 
+/**
+ * Converts milliseconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 1m 10s
+ */
 fun Long.millisToTimeFormat(): String {
     val totalSeconds = this / 1000
     val months = totalSeconds / (30 * 24 * 3600)
@@ -42,6 +68,20 @@ fun Long.millisToTimeFormat(): String {
     }.trim()
 }
 
+/**
+ * Converts seconds to a human-readable format.
+ *
+ * @return A string representing the time in a human-readable format. Example: 1m 10s
+ */
 fun Number.secondsToTimeFormat(): String {
     return (this.toLong()*1000).millisToTimeFormat()
+}
+
+/**
+ * Converts milliseconds to seconds show it as decimal format
+ *
+ * @return A string representing the time in decimals. Example: 1.5
+ */
+fun Long.millisToSecondsWithOneDecimal(): String {
+    return oneDecimalFormat.format(this / 1000.0)
 }

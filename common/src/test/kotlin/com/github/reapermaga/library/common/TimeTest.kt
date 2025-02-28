@@ -2,6 +2,7 @@ package com.github.reapermaga.library.common
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.Duration
 
 class TimeTest {
 
@@ -19,4 +20,5 @@ class TimeTest {
         Assertions.assertEquals(1000L.millisToTimeFormat(), "1sec")
         Assertions.assertEquals(70000L.millisToTimeFormat(), "1m 10sec")
     }
+
 }
