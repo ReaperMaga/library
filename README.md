@@ -36,7 +36,6 @@ To use this library in your Gradle project, add the following dependency to your
 ```kotlin
 repositories {
     maven {
-        id = "repsy"
         url = uri("https://repo.repsy.io/mvn/reapermaga/library")
     }
 }
