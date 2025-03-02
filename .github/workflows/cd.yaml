@@ -25,6 +25,6 @@ jobs:
       - name: Publish
         continue-on-error: true
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USER: ${{ github.actor }}
+          REPSY_USERNAME: ${{ secrets.REPSY_USERNAME }}
+          REPSY_PASSWORD: ${{ secrets.REPSY_PASSWORD }}
         run: ./gradlew publish --parallel --continue

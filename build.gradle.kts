@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.21"
     id("maven-publish")
+    id("co.uzzu.dotenv.gradle") version "4.0.0"
 }
 
 group = "com.github.reapermaga"
@@ -26,11 +27,11 @@ subprojects {
     configure<PublishingExtension> {
         repositories {
             maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/reapermaga/library")
+                name = "Repsy"
+                url = uri("https://repo.repsy.io/mvn/reapermaga/library")
                 credentials {
-                    username = project.findProperty("gpr.user") as String? ?: System.getenv("USER")
-                    password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+                    username = env.REPYS_USERNAME.value
+                    password = env.REPYS_PASSWORD.value
                 }
             }
         }
