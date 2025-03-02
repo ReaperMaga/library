@@ -23,7 +23,6 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Publish
-        continue-on-error: true
         env:
           REPSY_USERNAME: ${{ secrets.REPSY_USERNAME }}
           REPSY_PASSWORD: ${{ secrets.REPSY_PASSWORD }}
