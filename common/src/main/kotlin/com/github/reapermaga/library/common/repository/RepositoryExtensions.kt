@@ -2,8 +2,15 @@ package com.github.reapermaga.library.common.repository
 
 import java.lang.reflect.Field
 
-val cachedIdClasses = mutableMapOf<Class<*>, Field>()
+private val cachedIdClasses = mutableMapOf<Class<*>, Field>()
 
+/**
+ * Retrieve the id of an entity via reflection.
+ *
+ * @param entity Entity to retrieve the id from.
+ * @throws NullPointerException If the entity is null or does not have an id field.
+ * @return The id of the entity.
+ */
 @Suppress("UNCHECKED_CAST")
 fun <T, ID> Repository<T, ID>.retrieveId(entity : T): ID {
     if(entity != null) {

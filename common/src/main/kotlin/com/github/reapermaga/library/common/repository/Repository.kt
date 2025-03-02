@@ -2,6 +2,12 @@ package com.github.reapermaga.library.common.repository
 
 import java.util.concurrent.CompletableFuture
 
+/**
+ * Basic repository pattern interface.
+ *
+ * @param T Entity type.
+ * @param ID Entity ID type.
+ */
 interface Repository<T, ID> {
 
     fun persist(entity: T)
@@ -21,6 +27,12 @@ interface Repository<T, ID> {
     fun count(): Long
 }
 
+/**
+ * Asynchronous repository pattern interface.
+ *
+ * @param T Entity type.
+ * @param ID Entity ID type.
+ */
 interface AsyncRepository<T, ID> {
 
     fun persistAsync(entity: T): CompletableFuture<Void>

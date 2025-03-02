@@ -2,6 +2,13 @@ package com.github.reapermaga.library.common.repository
 
 import java.util.concurrent.CompletableFuture
 
+/**
+ * Basic repository pattern interface. It uses a map to store entities.
+ * Its main purpose is to provide a simple in-memory repository.
+ *
+ * @param T Entity type.
+ * @param ID Entity ID type.
+ */
 open class LocalRepository<T, ID>:Repository<T, ID>, AsyncRepository<T, ID> {
 
     val entities = mutableMapOf<ID, T>()
