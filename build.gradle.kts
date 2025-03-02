@@ -14,6 +14,7 @@ allprojects {
     }
 }
 
+
 subprojects {
     group = "com.github.reapermaga.library"
     apply(plugin = "maven-publish")
@@ -30,8 +31,8 @@ subprojects {
                 name = "Repsy"
                 url = uri("https://repo.repsy.io/mvn/reapermaga/library")
                 credentials {
-                    username = env.REPYS_USERNAME.value
-                    password = env.REPYS_PASSWORD.value
+                    username = env.fetch("REPSY_USERNAME")
+                    password = env.fetch("REPSY_PASSWORD")
                 }
             }
         }
