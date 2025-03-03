@@ -24,7 +24,7 @@ open class HoconFile<T:Any>(val path : String, val type : KClass<T>) {
 
     private var internalEntity : T? = null
 
-    var entity
+    var entity: T
         get() = internalEntity!!
         set(value) {
             internalEntity = value

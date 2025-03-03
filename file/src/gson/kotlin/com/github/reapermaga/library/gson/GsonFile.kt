@@ -36,7 +36,7 @@ open class GsonFile<T>(val path : String, val type : TypeToken<T>) {
 
     private var internalEntity : T? = null
 
-    var entity
+    var entity: T
         get() = internalEntity!!
         set(value) {
             internalEntity = value
