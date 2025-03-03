@@ -20,7 +20,7 @@ configure<PublishingExtension> {
     publications {
         create<MavenPublication>("gson") {
             artifact(tasks.named("gsonJar"))
-            artifactId = artifactId
+            artifactId = gsonArtifact
             version = gsonVersion
         }
     }
