@@ -7,7 +7,7 @@ class EventBusTest {
     @Test
     fun test() {
         val bus = EventBus()
-        bus.subscribe<String>(200) { println("This is crazy: $it") }
+        bus.subscribe<String>(200) { println("This is a high priority subscription: $it") }
         bus.subscribe<String> { println(it) }
         bus.publish("Hello, world!")
     }
