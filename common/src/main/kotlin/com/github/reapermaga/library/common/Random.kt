@@ -60,3 +60,23 @@ fun <T : RandomChanceItem> Collection<T>.randomByChance(): T {
     }
     return first()
 }
+
+fun randomInt(min: Int, max: Int): Int {
+    return ThreadLocalRandom.current().nextInt(min, max + 1)
+}
+
+fun randomLong(min: Long, max: Long): Long {
+    return ThreadLocalRandom.current().nextLong(min, max + 1)
+}
+
+fun randomDouble(min: Double, max: Double): Double {
+    return ThreadLocalRandom.current().nextDouble(min, max)
+}
+
+fun randomFloat(min: Float, max: Float): Float {
+    return ThreadLocalRandom.current().nextFloat(min, max)
+}
+
+fun randomBoolean(): Boolean {
+    return ThreadLocalRandom.current().nextBoolean()
+}
