@@ -61,22 +61,55 @@ fun <T : RandomChanceItem> Collection<T>.randomByChance(): T {
     return first()
 }
 
+/**
+ * Returns a random integer between the specified minimum (inclusive) and maximum (inclusive) values.
+ *
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (inclusive).
+ * @return A random integer between min and max (inclusive).
+ */
 fun randomInt(min: Int, max: Int): Int {
     return ThreadLocalRandom.current().nextInt(min, max + 1)
 }
 
+/**
+ * Returns a random long between the specified minimum (inclusive) and maximum (inclusive) values.
+ *
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (inclusive).
+ * @return A random long between min and max (inclusive).
+ */
 fun randomLong(min: Long, max: Long): Long {
     return ThreadLocalRandom.current().nextLong(min, max + 1)
 }
 
+/**
+ * Returns a random double between the specified minimum (inclusive) and maximum (exclusive) values.
+ *
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (exclusive).
+ * @return A random double between min and max (exclusive).
+ */
 fun randomDouble(min: Double, max: Double): Double {
     return ThreadLocalRandom.current().nextDouble(min, max)
 }
 
+/**
+ * Returns a random float between the specified minimum (inclusive) and maximum (exclusive) values.
+ *
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (exclusive).
+ * @return A random float between min and max (exclusive).
+ */
 fun randomFloat(min: Float, max: Float): Float {
     return ThreadLocalRandom.current().nextFloat(min, max)
 }
 
+/**
+ * Returns a random boolean value.
+ *
+ * @return A random boolean value.
+ */
 fun randomBoolean(): Boolean {
     return ThreadLocalRandom.current().nextBoolean()
 }
