@@ -5,6 +5,12 @@ import com.github.reapermaga.library.cdi.processor.InjectProcessor
 import com.github.reapermaga.library.cdi.processor.PostStartupProcessor
 import com.github.reapermaga.library.cdi.processor.StartupProcessor
 
+/**
+ * Manager for the CDI system. This class is responsible for running the CDI system.
+ *
+ * @property entityRegistry Contains all entities that are registered in the CDI system.
+ * @property processors They handle the logic of the annotations.
+ */
 class CDI {
 
     val entityRegistry: CDIEntityRegistry = CDIEntityRegistry()
@@ -15,10 +21,20 @@ class CDI {
         PostStartupProcessor(entityRegistry)
     )
 
+    /**
+     * Register a processor
+     * @param processor The processor to register
+     */
     fun registerProcessor(processor: CDIProcessor) {
         this.processors.add(processor)
     }
 
+    /**
+     * Run the CDI system. It will process all entities and run the processors.
+     *
+     * @param entryPoint The entry point of the application. Mostly the main class.
+     * @param packageName The package name to scan for entities.
+     */
     fun run(entryPoint: Any, packageName: String) {
         entityRegistry.register(entryPoint)
         scan(entryPoint::class.java.classLoader, packageName).forEach {

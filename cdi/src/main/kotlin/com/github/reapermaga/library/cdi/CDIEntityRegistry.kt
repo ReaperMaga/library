@@ -5,10 +5,20 @@ class CDIEntityRegistry {
 
     internal val entities = mutableListOf<CDIEntity>()
 
+    /**
+     * Register an entity
+     *
+     * @param instance The instance of the entity
+     */
     fun register(instance: Any) {
         this.entities.add(CDIEntity(instance))
     }
 
+    /**
+     * Register an entity class and create an instance of it,.
+     *
+     * @param entityClass The class of the entity
+     */
     fun register(entityClass: Class<*>) {
         val constructor = entityClass.constructors.first()
         if(constructor.parameterCount >= 1) {
@@ -26,18 +36,36 @@ class CDIEntityRegistry {
         }
     }
 
+    /**
+     * Unregister an entity
+     */
     fun unregister(entity: CDIEntity) {
         entities.remove(entity)
     }
 
+    /**
+     * Unregister all entities
+     */
     fun unregisterAll() {
         entities.clear()
     }
 
+    /**
+     * Get an entity by class or interface
+     *
+     * @param entityClass The class of the entity
+     * @return The entity or null if not found
+     */
     fun getEntity(entityClass: Class<*>): CDIEntity? {
         return entities.find { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
     }
 
+    /**
+     * Get all entities by class or interface
+     *
+     * @param entityClass The class of the entity
+     * @return The entities or an empty list if not found
+     */
     fun getEntities(entityClass: Class<*>): List<CDIEntity> {
         return entities.filter { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
     }
