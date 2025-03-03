@@ -12,4 +12,29 @@ fun download(url: String, outputPath: String): File {
     return file
 }
 
+fun pingUrl(url: String, timeout: Int = 3000): Boolean {
+    return try {
+        val connection = URI(url).toURL().openConnection()
+        connection.connectTimeout = timeout
+        connection.connect()
+        true
+    } catch (e: Exception) {
+        false
+    }
+}
+
+
+fun ping(host: String, port: Int, timeout : Int = 3000): Boolean {
+    return try {
+        val socket = java.net.Socket()
+        socket.connect(java.net.InetSocketAddress(host, port), timeout)
+        socket.close()
+        true
+    } catch (e: Exception) {
+        false
+    }
+}
+
+
+
 
