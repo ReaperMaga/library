@@ -18,7 +18,7 @@ import java.io.FileReader
  */
 open class GsonFile<T>(val path : String, val type : TypeToken<T>) {
 
-    protected val gsonBuilder : GsonBuilder = GsonBuilder()
+    protected open val gsonBuilder : GsonBuilder = GsonBuilder()
         .setPrettyPrinting()
 
     private val gson by lazy(LazyThreadSafetyMode.NONE) { gsonBuilder.create() }
