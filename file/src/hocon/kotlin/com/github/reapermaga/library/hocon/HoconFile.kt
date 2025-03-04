@@ -9,6 +9,14 @@ import kotlinx.serialization.serializer
 import java.io.File
 import kotlin.reflect.KClass
 
+/**
+ * A wrapper for a file that contains a single entity of type [T] serialized with Hocon.
+ *
+ * @param path The path to the file.
+ * @param type The type of the entity.
+ * @property entity The entity that is stored in the file.
+ * @property file The file that contains the entity.
+ */
 open class HoconFile<T:Any>(val path : String, val type : KClass<T>) {
 
     val file by lazy(LazyThreadSafetyMode.NONE) {

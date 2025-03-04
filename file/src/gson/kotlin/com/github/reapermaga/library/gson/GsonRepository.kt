@@ -8,6 +8,13 @@ import java.io.File
 import java.util.concurrent.CompletableFuture
 import kotlin.reflect.KClass
 
+/**
+ * A repository that stores entities of type [T] serialized with Gson in files.
+ *
+ * @param path The path to the directory where the files are stored.
+ * @param type The type of the entities.
+ * @property directory The directory where the files are stored.
+ */
 open class GsonRepository<T:Any, ID>(val path : String, val type : KClass<T>):Repository<T, ID>, AsyncRepository<T, ID> {
 
     val directory = File(path).apply { if (!exists()) mkdirs() }
