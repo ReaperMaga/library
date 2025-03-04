@@ -48,12 +48,12 @@ repositories {
 
 dependencies {
     // Gson dependencies
-    add("gsonImplementation", "com.google.code.gson:gson:2.12.1")
-    add("gsonCompileOnly", sourceSets["main"].output)
-    add("gsonCompileOnly", project(":common"))
+    implementation("gson", "com.google.code.gson:gson:2.12.1")
+    compileOnly("gson", sourceSets["main"].output)
+    compileOnly("gson", project(":common"))
 
     // Hocon dependencies
-    add("hoconImplementation", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.8.0")
+    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.8.0")
 
     // Test dependencies
     testImplementation(kotlin("test"))
@@ -64,4 +64,13 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(21)
+}
+
+// Functions
+fun DependencyHandlerScope.implementation(child : String, dependency : Any) {
+    add("${child}Implementation", dependency)
+}
+
+fun DependencyHandlerScope.compileOnly(child : String, dependency : Any) {
+    add("${child}CompileOnly", dependency)
 }
