@@ -23,6 +23,7 @@ inline fun <reified T: ExposedEntity> createEntity(row: ResultRow): T {
  * @param row The `ResultRow` containing the data.
  * @return An instance of the specified `ExposedEntity` type.
  */
+@Suppress("UNCHECKED_CAST")
 fun <T: ExposedEntity> createEntity(type: Class<T>, row: ResultRow): T {
     val instance: T = type.constructors.first().newInstance() as T
     instance.columnBindings.forEach { (name, binding) ->
