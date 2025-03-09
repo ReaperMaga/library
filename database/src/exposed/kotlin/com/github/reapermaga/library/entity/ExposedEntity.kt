@@ -45,11 +45,13 @@ abstract class ExposedEntity {
     /**
      * A map of column bindings for the entity.
      */
+    @Transient
     val columnBindings = mutableMapOf<String, ColumnBinding<*>>()
 
     /**
      * A list of sub-entity bindings for the entity.
      */
+    @Transient
     val subEntities = mutableListOf<SubEntityBinding<out ExposedEntity>>()
 
     /**
@@ -61,6 +63,7 @@ abstract class ExposedEntity {
      */
     inner class ColumnBinding<T>(val column: Column<T>, defaultValue: T? = null) {
 
+        @Transient
         private var internalValue: T? = defaultValue
 
         init {
@@ -118,6 +121,7 @@ abstract class ExposedEntity {
      */
     inner class SubEntityBinding<T: ExposedEntity>(val type: Class<T>, defaultValue: T? = null) {
 
+        @Transient
         private var internalValue: T? = defaultValue
 
         init {

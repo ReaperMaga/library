@@ -8,7 +8,7 @@ class SourceSetEntry(val name: String, val version: String) {
 }
 
 val sourceSetEntries = listOf<SourceSetEntry>(
-    SourceSetEntry("exposed", "0.1.1"),
+    SourceSetEntry("exposed", "0.1.2"),
 )
 
 version = "0.1.0"
