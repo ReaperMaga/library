@@ -70,7 +70,7 @@ abstract class ExposedEntity {
             return internalValue!!
         }
 
-        internal operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
             internalValue = value
         }
 
@@ -127,7 +127,7 @@ abstract class ExposedEntity {
             return internalValue!!
         }
 
-        internal operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
             internalValue = value
         }
 
