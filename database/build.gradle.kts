@@ -46,9 +46,9 @@ repositories {
 dependencies {
     // Exposed dependencies
     val exposedVersion = "0.59.0"
-    implementation("exposed", "org.jetbrains.exposed:exposed-core:$exposedVersion")
-    implementation("exposed", "org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    implementation("exposed", "org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    api("exposed", "org.jetbrains.exposed:exposed-core:$exposedVersion")
+    api("exposed", "org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    api("exposed", "org.jetbrains.exposed:exposed-java-time:$exposedVersion")
 
     implementation("exposed", project(":common"))
 
@@ -67,6 +67,10 @@ kotlin {
 // Functions
 fun DependencyHandlerScope.implementation(child : String, dependency : Any) {
     add("${child}Implementation", dependency)
+}
+
+fun DependencyHandlerScope.api(child : String, dependency : Any) {
+    add("${child}Api", dependency)
 }
 
 fun DependencyHandlerScope.compileOnly(child : String, dependency : Any) {
