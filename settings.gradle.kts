@@ -4,3 +4,4 @@ plugins {
 rootProject.name = "library"
 include("common", "quarkus", "cdi")
 include("file")
+include("database")

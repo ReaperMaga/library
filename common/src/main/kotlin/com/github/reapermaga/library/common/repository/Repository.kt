@@ -51,3 +51,22 @@ interface AsyncRepository<T, ID> {
 
     fun countAsync(): CompletableFuture<Long>
 }
+
+interface SuspendedRepository<T, ID> {
+
+    suspend fun persist(entity: T)
+
+    suspend fun save(entity: T)
+
+    suspend fun findById(id: ID): T?
+
+    suspend fun findAll(): Collection<T>
+
+    suspend fun deleteById(id: ID)
+
+    suspend fun deleteAll()
+
+    suspend fun existsById(id: ID): Boolean
+
+    suspend fun count(): Long
+}

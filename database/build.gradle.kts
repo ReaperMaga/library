@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "2.1.10"
 }
 
 class SourceSetEntry(val name: String, val version: String) {
@@ -9,12 +8,10 @@ class SourceSetEntry(val name: String, val version: String) {
 }
 
 val sourceSetEntries = listOf<SourceSetEntry>(
-    SourceSetEntry("gson", "0.1.0"),
-    SourceSetEntry("hocon", "0.1.0")
+    SourceSetEntry("exposed", "0.1.0"),
 )
 
 version = "0.1.0"
-
 
 sourceSets {
     sourceSetEntries.forEach {
@@ -47,13 +44,17 @@ repositories {
 }
 
 dependencies {
-    // Gson dependencies
-    implementation("gson", "com.google.code.gson:gson:2.12.1")
-    compileOnly("gson", sourceSets["main"].output)
-    compileOnly("gson", project(":common"))
+    // Exposed dependencies
+    val exposedVersion = "0.59.0"
+    implementation("exposed", "org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("exposed", "org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("exposed", "org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    implementation("exposed", "com.h2database:h2:2.3.232")
+    implementation("exposed", "com.zaxxer:HikariCP:6.2.1")
 
-    // Hocon dependencies
-    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.8.0")
+
+    implementation("exposed", project(":common"))
+
 
     // Test dependencies
     testImplementation(kotlin("test"))
