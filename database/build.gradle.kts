@@ -4,7 +4,7 @@ plugins {
 
 class SourceSetEntry(val name: String, val version: String) {
     val artifact: String
-        get() = "file-${name}"
+        get() = "database-${name}"
 }
 
 val sourceSetEntries = listOf<SourceSetEntry>(
