@@ -49,9 +49,6 @@ dependencies {
     implementation("exposed", "org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("exposed", "org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("exposed", "org.jetbrains.exposed:exposed-java-time:$exposedVersion")
-    implementation("exposed", "com.h2database:h2:2.3.232")
-    implementation("exposed", "com.zaxxer:HikariCP:6.2.1")
-
 
     implementation("exposed", project(":common"))
 
