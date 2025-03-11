@@ -1,3 +1,5 @@
 package com.github.reapermaga.library.quarkus.exception
 
-data class HttpException(val statusCode: Int, override val message: String) : RuntimeException(message)
+import jakarta.ws.rs.core.Response
+
+open class HttpException(val status: Response.Status, override val message: String) : RuntimeException(message)

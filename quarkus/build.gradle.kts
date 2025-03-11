@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.allopen") version "2.0.21"
     id("io.quarkus") version "3.16.3"
+    id("org.kordamp.gradle.jandex") version "2.1.0"
 }
 
 
@@ -30,7 +31,7 @@ dependencies {
     testImplementation("io.quarkus:quarkus-junit5")
 }
 
-version = "0.1.0"
+version = "0.1.1"
 
 kotlin {
     jvmToolchain(21)
