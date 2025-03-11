@@ -31,6 +31,11 @@ fun <T: ExposedEntity> createEntity(type: Class<T>, row: ResultRow): T {
         if (value == null) return@forEach
         binding.setInternalValue(value)
     }
+    instance.nullableColumnBindings.forEach { (name, binding) ->
+        val value = row[binding.column]
+        if(value == null) return@forEach
+        binding.setInternalValue(value)
+    }
     instance.subEntities.forEach { entity ->
         entity.setInternalValue(createEntity(entity.type, row))
     }
@@ -47,6 +52,12 @@ abstract class ExposedEntity {
      */
     @Transient
     val columnBindings = mutableMapOf<String, ColumnBinding<*>>()
+
+    /**
+     * A map of column bindings for the entity.
+     */
+    @Transient
+    val nullableColumnBindings = mutableMapOf<String, NullableColumnBinding<*>>()
 
     /**
      * A list of sub-entity bindings for the entity.
@@ -85,6 +96,36 @@ abstract class ExposedEntity {
     }
 
     /**
+     * Class representing a binding between a nullable column and its value.
+     *
+     * @param T The type of the column.
+     * @param column The column to bind.
+     * @param defaultValue The default value of the column.
+     */
+    inner class NullableColumnBinding<T>(val column: Column<T>, defaultValue: T? = null) {
+
+        @Transient
+        private var internalValue: T? = defaultValue
+
+        init {
+            nullableColumnBindings[column.name] = this
+        }
+
+        operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
+            return internalValue
+        }
+
+        operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+            internalValue = value
+        }
+
+        fun setInternalValue(value: Any?) {
+            @Suppress("UNCHECKED_CAST")
+            internalValue = value as T
+        }
+    }
+
+    /**
      * Binds a column to the entity.
      *
      * @param column The column to bind.
@@ -100,6 +141,23 @@ abstract class ExposedEntity {
      * @return The column binding.
      */
     fun <T> bind(column: Column<T>, defaultValue: T): ColumnBinding<T> = ColumnBinding(column, defaultValue)
+
+    /**
+     * Binds a nullable column to the entity.
+     *
+     * @param column The column to bind.
+     * @return The column binding.
+     */
+    fun <T> bindNullable(column: Column<T>): NullableColumnBinding<T> = NullableColumnBinding(column)
+
+    /**
+     * Binds a nullable column to the entity with a default value.
+     *
+     * @param column The column to bind.
+     * @param defaultValue The default value of the column.
+     * @return The column binding.
+     */
+    fun <T> bindNullable(column: Column<T>, defaultValue: T): NullableColumnBinding<T> = NullableColumnBinding(column, defaultValue)
 
     /**
      * Binds a sub-entity to the entity.
