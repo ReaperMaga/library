@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty
  * @return An instance of the specified `ExposedEntity` type.
  */
 inline fun <reified T: ExposedEntity> createEntity(row: ResultRow): T {
-    return createEntity(T::class.java, row)
+    return createEntity(T::class.java, params = emptyArray<Any>(), row)
 }
 
 /**
@@ -24,8 +24,8 @@ inline fun <reified T: ExposedEntity> createEntity(row: ResultRow): T {
  * @return An instance of the specified `ExposedEntity` type.
  */
 @Suppress("UNCHECKED_CAST")
-fun <T: ExposedEntity> createEntity(type: Class<T>, row: ResultRow): T {
-    val instance: T = type.constructors.first().newInstance() as T
+fun <T: ExposedEntity> createEntity(type: Class<T>, params: Array<Any>, row: ResultRow): T {
+    val instance: T = type.constructors.first { it.parameterCount == params.size }.newInstance(*params) as T
     instance.columnBindings.forEach { (name, binding) ->
         val value = row[binding.column]
         if (value == null) return@forEach
@@ -37,7 +37,7 @@ fun <T: ExposedEntity> createEntity(type: Class<T>, row: ResultRow): T {
         binding.setInternalValue(value)
     }
     instance.subEntities.forEach { entity ->
-        entity.setInternalValue(createEntity(entity.type, row))
+        entity.setInternalValue(createEntity(entity.type, params = entity.params, row = row))
     }
     return instance
 }
@@ -164,8 +164,8 @@ abstract class ExposedEntity {
      *
      * @return The sub-entity binding.
      */
-    inline fun <reified T: ExposedEntity> bindEntity(): SubEntityBinding<T> {
-        val entity = SubEntityBinding(T::class.java)
+    inline fun <reified T: ExposedEntity> bindEntity(vararg params: Any): SubEntityBinding<T> {
+        val entity = SubEntityBinding(T::class.java, params = Array<Any>(params.size) { params[it] })
         subEntities.add(entity)
         return entity
     }
@@ -177,7 +177,7 @@ abstract class ExposedEntity {
      * @param type The class type of the sub-entity.
      * @param defaultValue The default value of the sub-entity.
      */
-    inner class SubEntityBinding<T: ExposedEntity>(val type: Class<T>, defaultValue: T? = null) {
+    inner class SubEntityBinding<T: ExposedEntity>(val type: Class<T>, val params: Array<Any>, defaultValue: T? = null) {
 
         @Transient
         private var internalValue: T? = defaultValue

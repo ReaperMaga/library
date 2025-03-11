@@ -70,7 +70,7 @@ open class ExposedDao<ID: Any>(val table: Table, vararg val joinTables: Table) {
      * @return The mapped result or null if no row is found.
      */
     protected suspend fun <T> findById(id: ID, map: (row: ResultRow) -> T) = runQuery {
-        table.selectAll().where { singlePrimaryKey eq id }.map { map(it) }.singleOrNull()
+        table.selectAll().where { singlePrimaryKey eq id }.firstOrNull()?.let { map(it) }
     }
 
     /**
