@@ -52,6 +52,12 @@ interface AsyncRepository<T, ID> {
     fun countAsync(): CompletableFuture<Long>
 }
 
+/**
+ * A coroutine-based repository interface offering basic CRUD operations in a suspended context.
+ *
+ * @param T The type of the entity managed by this repository.
+ * @param ID The type of the identifier for the entity.
+ */
 interface SuspendedRepository<T, ID> {
 
     suspend fun persist(entity: T)

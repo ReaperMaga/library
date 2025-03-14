@@ -1,6 +1,8 @@
 package com.github.reapermaga.library.common
 
 import java.io.File
+import java.io.InputStream
+import java.net.HttpURLConnection
 import java.net.URI
 
 /**
@@ -12,11 +14,45 @@ import java.net.URI
  */
 fun download(url: String, outputPath: String): File {
     val file = File(outputPath)
-    println(file.absolutePath)
     file.parentFile?.mkdirs()
     file.createNewFile()
     file.writeBytes(URI.create(url).toURL().readBytes())
     return file
+}
+
+
+/**
+ * Downloads content from the specified URL and returns it as an InputStream.
+ *
+ * @param url The URL to download the content from.
+ * @param settingsBlock A lambda to configure optional download settings such as User-Agent.
+ *                      The settings can be customized by modifying properties of the
+ *                      [DownloadSettings] instance provided within the lambda.
+ * @return An InputStream providing access to the downloaded content.
+ */
+fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}) : InputStream {
+    val settings = DownloadSettings().apply {
+        settingsBlock.invoke(this)
+    }
+    val connection = URI(url).toURL().openConnection() as HttpURLConnection
+    connection.requestMethod = settings.requestMethod
+    if(settings.agent != null) connection.setRequestProperty("User-Agent", settings.agent)
+    return connection.inputStream
+}
+
+/**
+ * Represents configuration settings for a download operation.
+ *
+ * @property agent The User-Agent string to be used for the download request.
+ *                 Defaults to null, which means no specific User-Agent is set.
+ *
+ * @constructor Creates a new instance of DownloadSettings with an optional User-Agent.
+ */
+data class DownloadSettings(var requestMethod: String = "GET", var agent: String? = null) {
+
+    fun useBrowserAgent() {
+        agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+    }
 }
 
 /**
