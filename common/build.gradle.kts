@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "2.0.21"
 }
 
-version = "0.1.10"
+version = "0.1.11"
 
 dependencies {
     implementation("at.favre.lib:bcrypt:0.10.2")
