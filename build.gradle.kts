@@ -34,8 +34,8 @@ subprojects {
                 name = "Repsy"
                 url = uri("https://repo.repsy.io/mvn/reapermaga/library")
                 credentials {
-                    username = env.fetch("REPSY_USERNAME")
-                    password = env.fetch("REPSY_PASSWORD")
+                    username = env.fetch("REPSY_USERNAME", "")
+                    password = env.fetch("REPSY_PASSWORD", "")
                 }
             }
         }
