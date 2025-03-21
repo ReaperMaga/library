@@ -4,7 +4,9 @@ import com.github.reapermaga.library.cdi.CDIEntity
 import com.github.reapermaga.library.cdi.CDIEntityRegistry
 import com.github.reapermaga.library.cdi.Inject
 import com.github.reapermaga.library.cdi.PostStartup
+import com.github.reapermaga.library.cdi.Shutdown
 import com.github.reapermaga.library.cdi.Startup
+import java.lang.reflect.Method
 
 class InjectProcessor(override val entityRegistry: CDIEntityRegistry) : AbstractCDIProcessor() {
 
@@ -47,6 +49,28 @@ class StartupProcessor(override val entityRegistry: CDIEntityRegistry) : Abstrac
                 method.invoke(entity.instance)
             }
         }
+    }
+
+    override fun getPriority(): Int = 10
+}
+
+class ShutdownProcessor(override val entityRegistry: CDIEntityRegistry) : AbstractCDIProcessor() {
+
+    private val methods = mutableListOf<() -> Unit>()
+
+    override fun process(entity: CDIEntity) {
+        entity.instance::class.java.declaredMethods.forEach { method ->
+            if (method.isAnnotationPresent(Shutdown::class.java)) {
+                method.trySetAccessible()
+                methods.add {
+                    method.invoke(entity.instance)
+                }
+            }
+        }
+    }
+
+    fun invokeMethods() {
+        methods.forEach {it.invoke() }
     }
 
     override fun getPriority(): Int = 10

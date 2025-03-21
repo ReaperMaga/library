@@ -60,19 +60,19 @@ interface AsyncRepository<T, ID> {
  */
 interface SuspendedRepository<T, ID> {
 
-    suspend fun persist(entity: T)
+    suspend fun persistSuspended(entity: T)
 
-    suspend fun save(entity: T)
+    suspend fun saveSuspended(entity: T)
 
-    suspend fun findById(id: ID): T?
+    suspend fun findByIdSuspended(id: ID): T?
 
-    suspend fun findAll(): Collection<T>
+    suspend fun findAllSuspended(): Collection<T>
 
-    suspend fun deleteById(id: ID)
+    suspend fun deleteByIdSuspended(id: ID)
 
-    suspend fun deleteAll()
+    suspend fun deleteAllSuspended()
 
-    suspend fun existsById(id: ID): Boolean
+    suspend fun existsByIdSuspended(id: ID): Boolean
 
-    suspend fun count(): Long
+    suspend fun countSuspended(): Long
 }

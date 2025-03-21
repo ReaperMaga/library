@@ -1,9 +1,6 @@
 package com.github.reapermaga.library.cdi
 
-import com.github.reapermaga.library.cdi.processor.CDIProcessor
-import com.github.reapermaga.library.cdi.processor.InjectProcessor
-import com.github.reapermaga.library.cdi.processor.PostStartupProcessor
-import com.github.reapermaga.library.cdi.processor.StartupProcessor
+import com.github.reapermaga.library.cdi.processor.*
 
 /**
  * Manager for the CDI system. This class is responsible for running the CDI system.
@@ -15,11 +12,21 @@ class CDI {
 
     val entityRegistry: CDIEntityRegistry = CDIEntityRegistry()
 
+    private val shutdownProcessor = ShutdownProcessor(entityRegistry)
+
     private val processors: MutableList<CDIProcessor> = mutableListOf(
         InjectProcessor(entityRegistry),
         StartupProcessor(entityRegistry),
-        PostStartupProcessor(entityRegistry)
+        PostStartupProcessor(entityRegistry),
+        shutdownProcessor
     )
+
+    /**
+     * Invokes all entity functions that are annotated with [Shutdown]
+     */
+    fun shutdown() {
+        shutdownProcessor.invokeMethods()
+    }
 
     /**
      * Register a processor
