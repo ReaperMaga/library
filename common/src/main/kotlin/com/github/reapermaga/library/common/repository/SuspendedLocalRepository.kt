@@ -39,6 +39,14 @@ abstract class SuspendedLocalRepository<T:Any, ID> : Repository<T, ID>, Suspende
         return entities.size.toLong()
     }
 
+    override suspend fun persistSuspended(entity: T) {
+        return persist(entity)
+    }
+
+    override suspend fun saveSuspended(entity: T) {
+        return save(entity)
+    }
+
     override suspend fun findByIdSuspended(id: ID): T? {
         return findById(id)
     }
