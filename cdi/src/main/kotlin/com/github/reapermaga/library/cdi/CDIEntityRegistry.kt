@@ -69,5 +69,14 @@ class CDIEntityRegistry {
     fun getEntities(entityClass: Class<*>): List<CDIEntity> {
         return entities.filter { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
     }
+
+    fun getEntitiesByTypeAnnotation(annotation: Class<out Annotation>): List<CDIEntity> {
+        return entities.filter { it.instance::class.java.isAnnotationPresent(annotation) }
+    }
+
+    fun getEntitiesInstancesByTypeAnnotation(annotation: Class<out Annotation>): List<Any> {
+        return getEntitiesByTypeAnnotation(annotation).map { it.instance }
+    }
+
 }
 data class CDIEntity(val instance: Any)
