@@ -6,7 +6,6 @@ import com.github.reapermaga.library.cdi.Inject
 import com.github.reapermaga.library.cdi.PostStartup
 import com.github.reapermaga.library.cdi.Shutdown
 import com.github.reapermaga.library.cdi.Startup
-import java.lang.reflect.Method
 
 class InjectProcessor(override val entityRegistry: CDIEntityRegistry) : AbstractCDIProcessor() {
 
