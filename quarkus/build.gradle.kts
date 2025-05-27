@@ -30,9 +30,10 @@ dependencies {
     implementation("io.quarkus:quarkus-rest-jackson")
     implementation("io.quarkus:quarkus-smallrye-openapi")
     testImplementation("io.quarkus:quarkus-junit5")
+    implementation("io.rest-assured:rest-assured")
 }
 
-version = "0.1.2"
+version = "0.1.3"
 
 kotlin {
     jvmToolchain(21)
