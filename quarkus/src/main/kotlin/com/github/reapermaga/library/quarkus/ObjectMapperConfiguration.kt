@@ -13,6 +13,7 @@ class ObjectMapperConfiguration {
     fun objectMapper(@All customizers : MutableList<ObjectMapperCustomizer>) : ObjectMapper {
         val mapper = JsonMapper.builder()
             .configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true)
+            .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
             .build()
         for (customizer in customizers) {
             customizer.customize(mapper)
