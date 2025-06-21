@@ -36,6 +36,7 @@ fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}) : Inp
     }
     val connection = URI(url).toURL().openConnection() as HttpURLConnection
     connection.requestMethod = settings.requestMethod
+    connection.connectTimeout = settings.timeout
     if(settings.agent != null) connection.setRequestProperty("User-Agent", settings.agent)
     return connection.inputStream
 }
@@ -48,7 +49,7 @@ fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}) : Inp
  *
  * @constructor Creates a new instance of DownloadSettings with an optional User-Agent.
  */
-data class DownloadSettings(var requestMethod: String = "GET", var agent: String? = null) {
+data class DownloadSettings(var requestMethod: String = "GET", var agent: String? = null, var timeout: Int = 5000) {
 
     fun useBrowserAgent() {
         agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
