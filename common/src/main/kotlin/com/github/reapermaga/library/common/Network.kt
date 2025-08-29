@@ -30,14 +30,14 @@ fun download(url: String, outputPath: String): File {
  *                      [DownloadSettings] instance provided within the lambda.
  * @return An InputStream providing access to the downloaded content.
  */
-fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}) : InputStream {
+fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}): InputStream {
     val settings = DownloadSettings().apply {
         settingsBlock.invoke(this)
     }
     val connection = URI(url).toURL().openConnection() as HttpURLConnection
     connection.requestMethod = settings.requestMethod
     connection.connectTimeout = settings.timeout
-    if(settings.agent != null) connection.setRequestProperty("User-Agent", settings.agent)
+    if (settings.agent != null) connection.setRequestProperty("User-Agent", settings.agent)
     return connection.inputStream
 }
 
@@ -52,7 +52,8 @@ fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}) : Inp
 data class DownloadSettings(var requestMethod: String = "GET", var agent: String? = null, var timeout: Int = 5000) {
 
     fun useBrowserAgent() {
-        agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+        agent =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
     }
 }
 
@@ -82,7 +83,7 @@ fun pingUrl(url: String, timeout: Int = 3000): Boolean {
  * @param timeout The timeout in milliseconds.
  * @return True if the host and port are reachable, false otherwise.
  */
-fun ping(host: String, port: Int, timeout : Int = 3000): Boolean {
+fun ping(host: String, port: Int, timeout: Int = 3000): Boolean {
     return try {
         val socket = java.net.Socket()
         socket.connect(java.net.InetSocketAddress(host, port), timeout)

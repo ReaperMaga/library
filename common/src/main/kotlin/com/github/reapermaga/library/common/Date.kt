@@ -2,7 +2,7 @@ package com.github.reapermaga.library.common
 
 import java.text.SimpleDateFormat
 import java.time.Instant
-import java.util.Date
+import java.util.*
 
 private val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
@@ -11,18 +11,18 @@ private val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
  *
  * @return A string representing the date in a human-readable format. Example: 01/01/2020 12:00:00
  */
-fun Date.format() : String = dateFormatter.format(this)
+fun Date.format(): String = dateFormatter.format(this)
 
 /**
  * Formats a long to a human-readable format.
  *
  * @return A string representing the date in a human-readable format. Example: 01/01/2020 12:00:00
  */
-fun Long.timestampToFormat() : String = dateFormatter.format(Date(this))
+fun Long.timestampToFormat(): String = dateFormatter.format(Date(this))
 
 /**
  * Formats an instant to a human-readable format.
  *
  * @return A string representing the date in a human-readable format. Example: 01/01/2020 12:00:00
  */
-fun Instant.format() : String = dateFormatter.format(Date.from(this))
+fun Instant.format(): String = dateFormatter.format(Date.from(this))

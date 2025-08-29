@@ -8,7 +8,11 @@ package com.github.reapermaga.library.common.concurrency
  * @param delayBetweenIteration Delay between each iteration of the worker. This is useful to prevent the worker from consuming too much CPU.
  * @param runner The callback that will run the tasks
  */
-class LongLiveTaskDistributor<T>(var numWorkers: Int, val delayBetweenIteration : Long = 1000, val runner : TaskRunner<T>) {
+class LongLiveTaskDistributor<T>(
+    var numWorkers: Int,
+    val delayBetweenIteration: Long = 1000,
+    val runner: TaskRunner<T>
+) {
 
     private val workers = mutableListOf<TaskDistributorWorker<T>>()
 
@@ -67,7 +71,7 @@ fun interface TaskRunner<T> {
     fun run(task: T)
 }
 
-private class TaskDistributorWorker<T>(val delayBetweenIteration : Long, val runner : TaskRunner<T>) : Thread() {
+private class TaskDistributorWorker<T>(val delayBetweenIteration: Long, val runner: TaskRunner<T>) : Thread() {
 
     val tasks = mutableListOf<T>()
     var isRunning = true
@@ -78,7 +82,7 @@ private class TaskDistributorWorker<T>(val delayBetweenIteration : Long, val run
 
     override fun run() {
         while (isRunning) {
-            if(delayBetweenIteration > 0) {
+            if (delayBetweenIteration > 0) {
                 sleep(delayBetweenIteration)
             }
             tasks.forEach {

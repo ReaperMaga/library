@@ -10,7 +10,7 @@ class RandomTest {
         var previousRandom = list.randomUnique("test")
         for (i in 0..10) {
             val random = list.randomUnique("test")
-            if(random == previousRandom) {
+            if (random == previousRandom) {
                 assert(false)
             }
             previousRandom = random
@@ -26,5 +26,5 @@ class RandomTest {
         }
     }
 
-    class Item(val name: String, override var chance : Double) : RandomChanceItem
+    class Item(val name: String, override var chance: Double) : RandomChanceItem
 }

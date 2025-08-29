@@ -12,7 +12,7 @@ private val randomUniqueMap = mutableMapOf<String, Int>()
  * @throws IllegalArgumentException if the collection is empty.
  * @return A random element from the collection.
  */
-tailrec fun <T> Collection<T>.randomUnique(identifier : String) : T {
+tailrec fun <T> Collection<T>.randomUnique(identifier: String): T {
     if (this.isEmpty()) throw IllegalArgumentException("Collection is empty")
     if (size == 1) return first()
     val randomObj = random()
@@ -32,7 +32,7 @@ tailrec fun <T> Collection<T>.randomUnique(identifier : String) : T {
  *
  * @param identifier The identifier to clear the random element for.
  */
-fun <T> Collection<T>.clearRandomUnique(identifier : String) {
+fun <T> Collection<T>.clearRandomUnique(identifier: String) {
     randomUniqueMap.remove(identifier)
 }
 
@@ -47,8 +47,8 @@ interface RandomChanceItem {
  * @return A random element from the collection.
  */
 fun <T : RandomChanceItem> Collection<T>.randomByChance(): T {
-    if(this.isEmpty()) throw IllegalArgumentException("Collection is empty")
-    if(this.size == 1) return first()
+    if (this.isEmpty()) throw IllegalArgumentException("Collection is empty")
+    if (this.size == 1) return first()
     val totalChance = sumOf { it.chance }
     val randomValue = ThreadLocalRandom.current().nextDouble(totalChance)
     var currentChance = 0.0

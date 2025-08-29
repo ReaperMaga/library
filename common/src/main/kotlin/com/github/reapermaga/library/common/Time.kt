@@ -1,56 +1,25 @@
 package com.github.reapermaga.library.common
 
+import java.util.*
+import java.util.concurrent.TimeUnit
 
-/**
- * Converts seconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 02:10
- */
-fun Number.secondsTo2Digits(): String {
-    val seconds = this.toLong()
-    val minutes = (seconds % 3600) / 60
-    val remainingSeconds = seconds % 60
-    return String.format("%02d:%02d", minutes, remainingSeconds)
+fun Number.toPaddedTimeString(
+    unit: TimeUnit = TimeUnit.MILLISECONDS,
+    padding: Int = 2
+): String {
+    val totalSeconds = unit.toSeconds(this.toLong())
+    val units = MutableList(padding) { 0L }
+    var remainder = totalSeconds
+    for (i in padding - 1 downTo 1) {
+        units[i] = remainder % 60
+        remainder /= 60
+    }
+    units[0] = remainder
+    return units.joinToString(":") { String.format("%02d", it) }
 }
 
-/**
- * Converts seconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 02:10:05
- */
-fun Number.secondsTo3Digits(): String {
-    val seconds = this.toLong()
-    val hours = seconds / 3600
-    val minutes = (seconds % 3600) / 60
-    val remainingSeconds = seconds % 60
-    return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
-}
-
-/**
- * Converts milliseconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 05:01
- */
-fun Long.millisTo2Digits(): String {
-    return (this / 1000).secondsTo2Digits()
-}
-
-/**
- * Converts milliseconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 02:10:05
- */
-fun Long.millisTo3Digits(): String {
-    return (this / 1000).secondsTo3Digits()
-}
-
-/**
- * Converts milliseconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 1m 10s
- */
-fun Long.millisToTimeFormat(): String {
-    val totalSeconds = this / 1000
+fun Long.toHumanReadableDuration(timeUnit: TimeUnit): String {
+    val totalSeconds = timeUnit.toSeconds(this)
     val months = totalSeconds / (30 * 24 * 3600)
     val weeks = (totalSeconds % (30 * 24 * 3600)) / (7 * 24 * 3600)
     val days = (totalSeconds % (7 * 24 * 3600)) / (24 * 3600)
@@ -68,20 +37,15 @@ fun Long.millisToTimeFormat(): String {
     }.trim()
 }
 
-/**
- * Converts seconds to a human-readable format.
- *
- * @return A string representing the time in a human-readable format. Example: 1m 10s
- */
-fun Number.secondsToTimeFormat(): String {
-    return (this.toLong()*1000).millisToTimeFormat()
-}
-
-/**
- * Converts milliseconds to seconds show it as decimal format
- *
- * @return A string representing the time in decimals. Example: 1.5
- */
-fun Long.millisToSecondsWithOneDecimal(): String {
-    return oneDecimalFormat.format(this / 1000.0)
+fun Number.formatTimeToDecimals(unit: TimeUnit, amount: Int, locale: Locale = Locale.US): String {
+    val seconds = when (unit) {
+        TimeUnit.SECONDS -> this.toDouble()
+        TimeUnit.MINUTES -> this.toDouble() * 60
+        TimeUnit.HOURS -> this.toDouble() * 3600
+        TimeUnit.DAYS -> this.toDouble() * 86400
+        TimeUnit.MILLISECONDS -> this.toDouble() / 1000
+        TimeUnit.MICROSECONDS -> this.toDouble() / 1_000_000
+        TimeUnit.NANOSECONDS -> this.toDouble() / 1_000_000_000
+    }
+    return String.format(locale, "%.${amount}f", seconds)
 }
