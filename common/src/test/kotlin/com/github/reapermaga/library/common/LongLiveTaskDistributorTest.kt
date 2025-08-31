@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test
 import java.lang.Thread.sleep
 
 class LongLiveTaskDistributorTest {
-
     @Test
     fun `Test common use-case`() {
-        val distributor = LongLiveTaskDistributor<TestTask>(4, 500) {
-            it.replaceRWithQuestionMark()
-            println("${Thread.currentThread().name} ${it.text}")
-        }
+        val distributor =
+            LongLiveTaskDistributor<TestTask>(4, 500) {
+                it.replaceRWithQuestionMark()
+                println("${Thread.currentThread().name} ${it.text}")
+            }
         distributor.addTask(TestTask("Rapid"))
         distributor.addTask(TestTask("Random"))
         distributor.addTask(TestTask("Randal"))
@@ -24,10 +24,11 @@ class LongLiveTaskDistributorTest {
 
     @Test
     fun `Test scaling`() {
-        val distributor = LongLiveTaskDistributor<TestTask>(1, 500) {
-            it.replaceRWithQuestionMark()
-            println("${Thread.currentThread().name} ${it.text}")
-        }
+        val distributor =
+            LongLiveTaskDistributor<TestTask>(1, 500) {
+                it.replaceRWithQuestionMark()
+                println("${Thread.currentThread().name} ${it.text}")
+            }
         distributor.addTask(TestTask("Rapid"))
         distributor.addTask(TestTask("Random"))
         distributor.addTask(TestTask("Randal"))
@@ -41,11 +42,11 @@ class LongLiveTaskDistributorTest {
         distributor.shutdown()
     }
 
-    class TestTask(var text: String) {
-
+    class TestTask(
+        var text: String,
+    ) {
         fun replaceRWithQuestionMark() {
             text = text.replace("R", "?")
         }
     }
-
 }

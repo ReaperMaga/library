@@ -14,7 +14,8 @@ import java.io.File
  */
 fun getFileFromResources(fileName: String): File {
     val classLoader = Thread.currentThread().contextClassLoader
-    val resource = classLoader.getResource(fileName)
-        ?: throw IllegalArgumentException("File not found: $fileName")
+    val resource =
+        classLoader.getResource(fileName)
+            ?: throw IllegalArgumentException("File not found: $fileName")
     return File(resource.toURI())
 }

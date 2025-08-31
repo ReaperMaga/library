@@ -9,7 +9,6 @@ import java.util.concurrent.CompletableFuture
  * @param ID Entity ID type.
  */
 interface Repository<T, ID> {
-
     fun persist(entity: T)
 
     fun save(entity: T)
@@ -34,7 +33,6 @@ interface Repository<T, ID> {
  * @param ID Entity ID type.
  */
 interface AsyncRepository<T, ID> {
-
     fun persistAsync(entity: T): CompletableFuture<Void>
 
     fun saveAsync(entity: T): CompletableFuture<Void>
@@ -59,7 +57,6 @@ interface AsyncRepository<T, ID> {
  * @param ID The type of the identifier for the entity.
  */
 interface SuspendedRepository<T, ID> {
-
     suspend fun persistSuspended(entity: T)
 
     suspend fun saveSuspended(entity: T)

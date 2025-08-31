@@ -11,9 +11,8 @@ package com.github.reapermaga.library.common.concurrency
 class LongLiveTaskDistributor<T>(
     var numWorkers: Int,
     val delayBetweenIteration: Long = 1000,
-    val runner: TaskRunner<T>
+    val runner: TaskRunner<T>,
 ) {
-
     private val workers = mutableListOf<TaskDistributorWorker<T>>()
 
     init {
@@ -64,15 +63,16 @@ class LongLiveTaskDistributor<T>(
             it.close()
         }
     }
-
 }
 
 fun interface TaskRunner<T> {
     fun run(task: T)
 }
 
-private class TaskDistributorWorker<T>(val delayBetweenIteration: Long, val runner: TaskRunner<T>) : Thread() {
-
+private class TaskDistributorWorker<T>(
+    val delayBetweenIteration: Long,
+    val runner: TaskRunner<T>,
+) : Thread() {
     val tasks = mutableListOf<T>()
     var isRunning = true
 
@@ -94,5 +94,4 @@ private class TaskDistributorWorker<T>(val delayBetweenIteration: Long, val runn
     fun close() {
         isRunning = false
     }
-
 }

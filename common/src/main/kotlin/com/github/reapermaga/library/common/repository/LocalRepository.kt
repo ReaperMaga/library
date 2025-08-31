@@ -9,8 +9,9 @@ import java.util.concurrent.CompletableFuture
  * @param T Entity type.
  * @param ID Entity ID type.
  */
-open class LocalRepository<T, ID> : Repository<T, ID>, AsyncRepository<T, ID> {
-
+open class LocalRepository<T, ID> :
+    Repository<T, ID>,
+    AsyncRepository<T, ID> {
     val entities = mutableMapOf<ID, T>()
 
     override fun persist(entity: T) {
@@ -24,13 +25,9 @@ open class LocalRepository<T, ID> : Repository<T, ID>, AsyncRepository<T, ID> {
         persist(entity)
     }
 
-    override fun findById(id: ID): T? {
-        return entities[id]
-    }
+    override fun findById(id: ID): T? = entities[id]
 
-    override fun findAll(): Collection<T> {
-        return entities.values
-    }
+    override fun findAll(): Collection<T> = entities.values
 
     override fun deleteById(id: ID) {
         entities.remove(id)
@@ -40,13 +37,9 @@ open class LocalRepository<T, ID> : Repository<T, ID>, AsyncRepository<T, ID> {
         entities.clear()
     }
 
-    override fun existsById(id: ID): Boolean {
-        return entities.containsKey(id)
-    }
+    override fun existsById(id: ID): Boolean = entities.containsKey(id)
 
-    override fun count(): Long {
-        return entities.size.toLong()
-    }
+    override fun count(): Long = entities.size.toLong()
 
     override fun persistAsync(entity: T): CompletableFuture<Void> {
         persist(entity)
@@ -58,13 +51,9 @@ open class LocalRepository<T, ID> : Repository<T, ID>, AsyncRepository<T, ID> {
         return CompletableFuture.completedFuture(null)
     }
 
-    override fun findByIdAsync(id: ID): CompletableFuture<T?> {
-        return CompletableFuture.completedFuture(findById(id))
-    }
+    override fun findByIdAsync(id: ID): CompletableFuture<T?> = CompletableFuture.completedFuture(findById(id))
 
-    override fun findAllAsync(): CompletableFuture<Collection<T>> {
-        return CompletableFuture.completedFuture(findAll())
-    }
+    override fun findAllAsync(): CompletableFuture<Collection<T>> = CompletableFuture.completedFuture(findAll())
 
     override fun deleteByIdAsync(id: ID): CompletableFuture<Long> {
         deleteById(id)
@@ -77,15 +66,9 @@ open class LocalRepository<T, ID> : Repository<T, ID>, AsyncRepository<T, ID> {
         return CompletableFuture.completedFuture(size)
     }
 
-    override fun existsByIdAsync(id: ID): CompletableFuture<Boolean> {
-        return CompletableFuture.completedFuture(existsById(id))
-    }
+    override fun existsByIdAsync(id: ID): CompletableFuture<Boolean> = CompletableFuture.completedFuture(existsById(id))
 
-    override fun countAsync(): CompletableFuture<Long> {
-        return CompletableFuture.completedFuture(count())
-    }
-
-
+    override fun countAsync(): CompletableFuture<Long> = CompletableFuture.completedFuture(count())
 }
 
 @Retention(AnnotationRetention.RUNTIME)

@@ -12,7 +12,8 @@ fun postSpec(
     expectStatusCode: Int = 200,
     pathParams: Map<String, Any> = emptyMap(),
 ): ValidatableResponse =
-    given().apply { body?.let { contentType(ContentType.JSON).body(body) } }
+    given()
+        .apply { body?.let { contentType(ContentType.JSON).body(body) } }
         .`when`()
         .pathParams(pathParams)
         .post(url)

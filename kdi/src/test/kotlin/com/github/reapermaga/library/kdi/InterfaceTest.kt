@@ -3,7 +3,6 @@ package com.github.reapermaga.library.kdi
 import org.junit.jupiter.api.Test
 
 class InterfaceTest {
-
     @Inject
     lateinit var testService: TestInterface
 
@@ -24,4 +23,3 @@ class TestService : TestInterface {
         println("TestService executed")
     }
 }
-

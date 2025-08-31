@@ -12,14 +12,16 @@ import java.net.URI
  * @param outputPath The path to save the file to.
  * @return The file that was downloaded.
  */
-fun download(url: String, outputPath: String): File {
+fun download(
+    url: String,
+    outputPath: String,
+): File {
     val file = File(outputPath)
     file.parentFile?.mkdirs()
     file.createNewFile()
     file.writeBytes(URI.create(url).toURL().readBytes())
     return file
 }
-
 
 /**
  * Downloads content from the specified URL and returns it as an InputStream.
@@ -30,10 +32,14 @@ fun download(url: String, outputPath: String): File {
  *                      [DownloadSettings] instance provided within the lambda.
  * @return An InputStream providing access to the downloaded content.
  */
-fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}): InputStream {
-    val settings = DownloadSettings().apply {
-        settingsBlock.invoke(this)
-    }
+fun download(
+    url: String,
+    settingsBlock: DownloadSettings.() -> Unit = {},
+): InputStream {
+    val settings =
+        DownloadSettings().apply {
+            settingsBlock.invoke(this)
+        }
     val connection = URI(url).toURL().openConnection() as HttpURLConnection
     connection.requestMethod = settings.requestMethod
     connection.connectTimeout = settings.timeout
@@ -49,8 +55,11 @@ fun download(url: String, settingsBlock: DownloadSettings.() -> Unit = {}): Inpu
  *
  * @constructor Creates a new instance of DownloadSettings with an optional User-Agent.
  */
-data class DownloadSettings(var requestMethod: String = "GET", var agent: String? = null, var timeout: Int = 5000) {
-
+data class DownloadSettings(
+    var requestMethod: String = "GET",
+    var agent: String? = null,
+    var timeout: Int = 5000,
+) {
     fun useBrowserAgent() {
         agent =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
@@ -64,8 +73,11 @@ data class DownloadSettings(var requestMethod: String = "GET", var agent: String
  * @param timeout The timeout in milliseconds.
  * @return True if the URL is reachable, false otherwise.
  */
-fun pingUrl(url: String, timeout: Int = 3000): Boolean {
-    return try {
+fun pingUrl(
+    url: String,
+    timeout: Int = 3000,
+): Boolean =
+    try {
         val connection = URI(url).toURL().openConnection()
         connection.connectTimeout = timeout
         connection.connect()
@@ -73,7 +85,6 @@ fun pingUrl(url: String, timeout: Int = 3000): Boolean {
     } catch (e: Exception) {
         false
     }
-}
 
 /**
  * Ping a host and port to check if it is reachable.
@@ -83,8 +94,12 @@ fun pingUrl(url: String, timeout: Int = 3000): Boolean {
  * @param timeout The timeout in milliseconds.
  * @return True if the host and port are reachable, false otherwise.
  */
-fun ping(host: String, port: Int, timeout: Int = 3000): Boolean {
-    return try {
+fun ping(
+    host: String,
+    port: Int,
+    timeout: Int = 3000,
+): Boolean =
+    try {
         val socket = java.net.Socket()
         socket.connect(java.net.InetSocketAddress(host, port), timeout)
         socket.close()
@@ -92,8 +107,3 @@ fun ping(host: String, port: Int, timeout: Int = 3000): Boolean {
     } catch (e: Exception) {
         false
     }
-}
-
-
-
-

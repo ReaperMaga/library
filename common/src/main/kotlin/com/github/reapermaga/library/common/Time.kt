@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 
 fun Number.toPaddedTimeString(
     unit: TimeUnit = TimeUnit.MILLISECONDS,
-    padding: Int = 2
+    padding: Int = 2,
 ): String {
     val totalSeconds = unit.toSeconds(this.toLong())
     val units = MutableList(padding) { 0L }
@@ -37,15 +37,20 @@ fun Long.toHumanReadableDuration(timeUnit: TimeUnit): String {
     }.trim()
 }
 
-fun Number.formatTimeToDecimals(unit: TimeUnit, amount: Int, locale: Locale = Locale.US): String {
-    val seconds = when (unit) {
-        TimeUnit.SECONDS -> this.toDouble()
-        TimeUnit.MINUTES -> this.toDouble() * 60
-        TimeUnit.HOURS -> this.toDouble() * 3600
-        TimeUnit.DAYS -> this.toDouble() * 86400
-        TimeUnit.MILLISECONDS -> this.toDouble() / 1000
-        TimeUnit.MICROSECONDS -> this.toDouble() / 1_000_000
-        TimeUnit.NANOSECONDS -> this.toDouble() / 1_000_000_000
-    }
+fun Number.formatTimeToDecimals(
+    unit: TimeUnit,
+    amount: Int,
+    locale: Locale = Locale.US,
+): String {
+    val seconds =
+        when (unit) {
+            TimeUnit.SECONDS -> this.toDouble()
+            TimeUnit.MINUTES -> this.toDouble() * 60
+            TimeUnit.HOURS -> this.toDouble() * 3600
+            TimeUnit.DAYS -> this.toDouble() * 86400
+            TimeUnit.MILLISECONDS -> this.toDouble() / 1000
+            TimeUnit.MICROSECONDS -> this.toDouble() / 1_000_000
+            TimeUnit.NANOSECONDS -> this.toDouble() / 1_000_000_000
+        }
     return String.format(locale, "%.${amount}f", seconds)
 }

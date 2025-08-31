@@ -9,8 +9,10 @@ import java.util.concurrent.CompletableFuture
  * @param delay The delay in milliseconds to wait before executing the task.
  * @param execute The task to execute.
  */
-class DebouncedTaskExecutor<T>(val delay: Long, val execute: (T) -> Unit) {
-
+class DebouncedTaskExecutor<T>(
+    val delay: Long,
+    val execute: (T) -> Unit,
+) {
     private val runningTasks = mutableSetOf<String>()
 
     /**
@@ -19,7 +21,10 @@ class DebouncedTaskExecutor<T>(val delay: Long, val execute: (T) -> Unit) {
      * @param id The unique id of the task.
      * @param task The task to execute
      */
-    fun addTask(id: String, task: T) {
+    fun addTask(
+        id: String,
+        task: T,
+    ) {
         if (isTaskRunning(id)) {
             return
         }
@@ -39,7 +44,10 @@ class DebouncedTaskExecutor<T>(val delay: Long, val execute: (T) -> Unit) {
      * @param task The task to execute
      * @return A CompletableFuture that will be completed when the task is finished. Null if the task is already running.
      */
-    fun addTaskWithFuture(id: String, task: T): CompletableFuture<T>? {
+    fun addTaskWithFuture(
+        id: String,
+        task: T,
+    ): CompletableFuture<T>? {
         if (isTaskRunning(id)) {
             return null
         }

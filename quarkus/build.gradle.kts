@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.allopen") version "2.0.21"
+    kotlin("jvm")
+    kotlin("plugin.allopen") version "2.2.10"
     id("io.quarkus") version "3.16.3"
     id("org.kordamp.gradle.jandex") version "2.1.0"
 }
@@ -18,12 +18,12 @@ tasks.withType<GenerateModuleMetadata> {
     suppressedValidationErrors.add("enforced-platform")
 }
 
-val quarkusPlatformGroupId : String by project
-val quarkusPlatformArtifactId : String by project
-val quarkusPlatformVersion : String by project
+val quarkusPlatformGroupId: String by project
+val quarkusPlatformArtifactId: String by project
+val quarkusPlatformVersion: String by project
 
 dependencies {
-    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
+    implementation(enforcedPlatform("$quarkusPlatformGroupId:$quarkusPlatformArtifactId:$quarkusPlatformVersion"))
     implementation("io.quarkus:quarkus-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")

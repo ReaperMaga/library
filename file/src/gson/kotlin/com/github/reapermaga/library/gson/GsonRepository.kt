@@ -15,9 +15,11 @@ import kotlin.reflect.KClass
  * @param type The type of the entities.
  * @property directory The directory where the files are stored.
  */
-open class GsonRepository<T : Any, ID>(val path: String, val type: KClass<T>) : Repository<T, ID>,
+open class GsonRepository<T : Any, ID>(
+    val path: String,
+    val type: KClass<T>,
+) : Repository<T, ID>,
     AsyncRepository<T, ID> {
-
     val directory = File(path).apply { if (!exists()) mkdirs() }
 
     override fun persist(entity: T) {
@@ -56,53 +58,33 @@ open class GsonRepository<T : Any, ID>(val path: String, val type: KClass<T>) : 
         directory.listFiles()?.forEach { it.delete() }
     }
 
-    override fun existsById(id: ID): Boolean {
-        return getWrapper(id).file.exists()
-    }
+    override fun existsById(id: ID): Boolean = getWrapper(id).file.exists()
 
-    override fun count(): Long {
-        return directory.listFiles()?.size?.toLong() ?: 0
-    }
+    override fun count(): Long = directory.listFiles()?.size?.toLong() ?: 0
 
-    private fun getWrapper(id: ID): GsonFile<T> {
-        return GsonFile("$path${id.toString()}.json", TypeToken.get(type.java))
-    }
+    private fun getWrapper(id: ID): GsonFile<T> = GsonFile("$path$id.json", TypeToken.get(type.java))
 
-    override fun persistAsync(entity: T): CompletableFuture<Void> {
-        return saveAsync(entity)
-    }
+    override fun persistAsync(entity: T): CompletableFuture<Void> = saveAsync(entity)
 
-    override fun saveAsync(entity: T): CompletableFuture<Void> {
-        return CompletableFuture.runAsync { save(entity) }
-    }
+    override fun saveAsync(entity: T): CompletableFuture<Void> = CompletableFuture.runAsync { save(entity) }
 
-    override fun findByIdAsync(id: ID): CompletableFuture<T?> {
-        return CompletableFuture.supplyAsync { findById(id) }
-    }
+    override fun findByIdAsync(id: ID): CompletableFuture<T?> = CompletableFuture.supplyAsync { findById(id) }
 
-    override fun findAllAsync(): CompletableFuture<Collection<T>> {
-        return CompletableFuture.supplyAsync { findAll() }
-    }
+    override fun findAllAsync(): CompletableFuture<Collection<T>> = CompletableFuture.supplyAsync { findAll() }
 
-    override fun deleteByIdAsync(id: ID): CompletableFuture<Long> {
-        return CompletableFuture.supplyAsync {
+    override fun deleteByIdAsync(id: ID): CompletableFuture<Long> =
+        CompletableFuture.supplyAsync {
             deleteById(id)
             1
         }
-    }
 
-    override fun deleteAllAsync(): CompletableFuture<Long> {
-        return CompletableFuture.supplyAsync {
+    override fun deleteAllAsync(): CompletableFuture<Long> =
+        CompletableFuture.supplyAsync {
             deleteAll()
             count()
         }
-    }
 
-    override fun existsByIdAsync(id: ID): CompletableFuture<Boolean> {
-        return CompletableFuture.supplyAsync { existsById(id) }
-    }
+    override fun existsByIdAsync(id: ID): CompletableFuture<Boolean> = CompletableFuture.supplyAsync { existsById(id) }
 
-    override fun countAsync(): CompletableFuture<Long> {
-        return CompletableFuture.supplyAsync { count() }
-    }
+    override fun countAsync(): CompletableFuture<Long> = CompletableFuture.supplyAsync { count() }
 }

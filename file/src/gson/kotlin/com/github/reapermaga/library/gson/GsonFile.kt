@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileReader
 
-
 /**
  * A wrapper for a file that contains a single entity of type [T] serialized with Gson.
  *
@@ -16,10 +15,13 @@ import java.io.FileReader
  * @property gson The Gson instance used to serialize and deserialize the entity.
  * @property gsonBuilder The GsonBuilder used to create the Gson instance.
  */
-open class GsonFile<T>(val path: String, val type: TypeToken<T>) {
-
-    protected open val gsonBuilder: GsonBuilder = GsonBuilder()
-        .setPrettyPrinting()
+open class GsonFile<T>(
+    val path: String,
+    val type: TypeToken<T>,
+) {
+    protected open val gsonBuilder: GsonBuilder =
+        GsonBuilder()
+            .setPrettyPrinting()
 
     private val gson by lazy(LazyThreadSafetyMode.NONE) { gsonBuilder.create() }
 

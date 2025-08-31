@@ -15,10 +15,11 @@ private val cachedIdClasses = mutableMapOf<Class<*>, Field>()
 fun <T, ID> Repository<T, ID>.retrieveId(entity: T): ID {
     if (entity != null) {
         if (!cachedIdClasses.containsKey(entity::class.java)) {
-            cachedIdClasses[entity::class.java] = entity::class.java.declaredFields.first {
-                it.isAccessible = true
-                it.isAnnotationPresent(Id::class.java)
-            }
+            cachedIdClasses[entity::class.java] =
+                entity::class.java.declaredFields.first {
+                    it.isAccessible = true
+                    it.isAnnotationPresent(Id::class.java)
+                }
         }
         val idClass = cachedIdClasses[entity::class.java]
         if (idClass != null) {

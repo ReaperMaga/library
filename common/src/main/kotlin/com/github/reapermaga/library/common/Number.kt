@@ -7,8 +7,9 @@ import java.util.*
  *
  * @return A string representing the number in a human-readable format. Example: 1,000
  */
-fun Number.formatToThousands(): String {
-    return String.format("%,d", toLong())
-}
+fun Number.formatToThousands(): String = String.format("%,d", toLong())
 
-fun Double.formatToDecimals(amount: Int, locale: Locale = Locale.US) = String.format(locale, "%.${amount}f", this)
+fun Double.formatToDecimals(
+    amount: Int,
+    locale: Locale = Locale.US,
+) = String.format(locale, "%.${amount}f", this)

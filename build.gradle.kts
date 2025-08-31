@@ -1,7 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.2.10"
     id("maven-publish")
     id("co.uzzu.dotenv.gradle") version "4.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "13.1.0"
 }
 
 group = "com.github.reapermaga"
@@ -14,11 +15,11 @@ allprojects {
     }
 }
 
-
 subprojects {
     group = "com.github.reapermaga.library"
     apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     java {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -46,8 +47,3 @@ subprojects {
         }
     }
 }
-
-
-
-
-

@@ -9,17 +9,17 @@ import com.github.reapermaga.library.kdi.processor.*
  * @property processors They handle the logic of the annotations.
  */
 class KDI {
-
     val entityRegistry: EntityRegistry = EntityRegistry()
 
     private val shutdownProcessor = ShutdownProcessor(entityRegistry)
 
-    private val processors: MutableList<Processor> = mutableListOf(
-        InjectProcessor(entityRegistry),
-        StartupProcessor(entityRegistry),
-        PostStartupProcessor(entityRegistry),
-        shutdownProcessor
-    )
+    private val processors: MutableList<Processor> =
+        mutableListOf(
+            InjectProcessor(entityRegistry),
+            StartupProcessor(entityRegistry),
+            PostStartupProcessor(entityRegistry),
+            shutdownProcessor,
+        )
 
     /**
      * Invokes all entity functions that are annotated with [Shutdown]
@@ -42,7 +42,10 @@ class KDI {
      * @param entryPoint The entry point of the application. Mostly the main class.
      * @param packageName The package name to scan for entities.
      */
-    fun run(entryPoint: Any, packageName: String) {
+    fun run(
+        entryPoint: Any,
+        packageName: String,
+    ) {
         entityRegistry.register(entryPoint)
         scan(entryPoint::class.java.classLoader, packageName).forEach {
             if (it.isAnnotationPresent(Scoped::class.java)) {
@@ -58,10 +61,13 @@ class KDI {
     }
 }
 
-fun createKdiContext(entryPoint: Any, packageName: String, config: KDI.() -> Unit = {}): KDI {
+fun createKdiContext(
+    entryPoint: Any,
+    packageName: String,
+    config: KDI.() -> Unit = {},
+): KDI {
     val kdi = KDI()
     kdi.config()
     kdi.run(entryPoint, packageName)
     return kdi
 }
-

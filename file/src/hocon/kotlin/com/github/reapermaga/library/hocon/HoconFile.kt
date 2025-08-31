@@ -17,8 +17,10 @@ import kotlin.reflect.KClass
  * @property entity The entity that is stored in the file.
  * @property file The file that contains the entity.
  */
-open class HoconFile<T : Any>(val path: String, val type: KClass<T>) {
-
+open class HoconFile<T : Any>(
+    val path: String,
+    val type: KClass<T>,
+) {
     val file by lazy(LazyThreadSafetyMode.NONE) {
         File(path).apply {
             if (parentFile != null && !parentFile.exists()) {
@@ -58,8 +60,8 @@ open class HoconFile<T : Any>(val path: String, val type: KClass<T>) {
         if (internalEntity == null) return
         file.writeText(
             Hocon.encodeToConfig(type.serializer(), internalEntity!!).root().render(
-                ConfigRenderOptions.defaults().setOriginComments(false).setJson(false)
-            )
+                ConfigRenderOptions.defaults().setOriginComments(false).setJson(false),
+            ),
         )
     }
 
@@ -69,6 +71,4 @@ open class HoconFile<T : Any>(val path: String, val type: KClass<T>) {
     fun delete() {
         file.delete()
     }
-
 }
-

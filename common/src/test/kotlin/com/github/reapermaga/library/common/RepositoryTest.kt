@@ -6,7 +6,6 @@ import com.github.reapermaga.library.common.repository.Repository
 import org.junit.jupiter.api.Test
 
 class RepositoryTest {
-
     @Test
     fun `Test local repository`() {
         val userRepository = LocalUserRepository()
@@ -41,11 +40,15 @@ class RepositoryTest {
         userRepository.deleteAll()
         assert(userRepository.count() == 0L)
     }
-
 }
 
 interface UserRepository : Repository<User, String>
 
-class LocalUserRepository : LocalRepository<User, String>(), UserRepository
+class LocalUserRepository :
+    LocalRepository<User, String>(),
+    UserRepository
 
-data class User(@Id val id: String, val email: String)
+data class User(
+    @Id val id: String,
+    val email: String,
+)

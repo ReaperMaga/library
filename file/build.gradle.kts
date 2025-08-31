@@ -3,18 +3,21 @@ plugins {
     kotlin("plugin.serialization") version "2.1.10"
 }
 
-class SourceSetEntry(val name: String, val version: String) {
+class SourceSetEntry(
+    val name: String,
+    val version: String,
+) {
     val artifact: String
-        get() = "file-${name}"
+        get() = "file-$name"
 }
 
-val sourceSetEntries = listOf<SourceSetEntry>(
-    SourceSetEntry("gson", "0.2.0"),
-    SourceSetEntry("hocon", "0.2.0")
-)
+val sourceSetEntries =
+    listOf<SourceSetEntry>(
+        SourceSetEntry("gson", "0.2.0"),
+        SourceSetEntry("hocon", "0.2.0"),
+    )
 
 version = "0.1.0"
-
 
 sourceSets {
     sourceSetEntries.forEach {
@@ -67,10 +70,16 @@ kotlin {
 }
 
 // Functions
-fun DependencyHandlerScope.implementation(child: String, dependency: Any) {
+fun DependencyHandlerScope.implementation(
+    child: String,
+    dependency: Any,
+) {
     add("${child}Implementation", dependency)
 }
 
-fun DependencyHandlerScope.compileOnly(child: String, dependency: Any) {
+fun DependencyHandlerScope.compileOnly(
+    child: String,
+    dependency: Any,
+) {
     add("${child}CompileOnly", dependency)
 }

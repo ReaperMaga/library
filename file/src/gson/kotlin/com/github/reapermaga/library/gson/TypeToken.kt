@@ -10,9 +10,7 @@ import kotlin.reflect.KClass
  * @param type The type of the list.
  * @return The [TypeToken] for the list.
  */
-fun <T : Any> typeTokenOfMutableList(type: KClass<T>): TypeToken<MutableList<T>> {
-    return TypeToken.getParameterized(MutableList::class.java, type.java) as TypeToken<MutableList<T>>
-}
+fun <T : Any> typeTokenOfMutableList(type: KClass<T>): TypeToken<MutableList<T>> = TypeToken.getParameterized(MutableList::class.java, type.java) as TypeToken<MutableList<T>>
 
 /**
  * Creates a [TypeToken] for a [MutableMap] with the given key and value types.
@@ -20,9 +18,10 @@ fun <T : Any> typeTokenOfMutableList(type: KClass<T>): TypeToken<MutableList<T>>
  * @param value The type of the map values.
  * @return The [TypeToken] for the map.
  */
-fun <K : Any, V : Any> typeTokenOfMutableMap(key: KClass<K>, value: KClass<V>): TypeToken<MutableMap<K, V>> {
-    return TypeToken.getParameterized(MutableMap::class.java, key.java, value.java) as TypeToken<MutableMap<K, V>>
-}
+fun <K : Any, V : Any> typeTokenOfMutableMap(
+    key: KClass<K>,
+    value: KClass<V>,
+): TypeToken<MutableMap<K, V>> = TypeToken.getParameterized(MutableMap::class.java, key.java, value.java) as TypeToken<MutableMap<K, V>>
 
 /**
  * Creates a [TypeToken] for the given type [T].

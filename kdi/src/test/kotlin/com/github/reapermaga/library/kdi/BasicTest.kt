@@ -3,7 +3,6 @@ package com.github.reapermaga.library.kdi
 import org.junit.jupiter.api.Test
 
 class BasicTest {
-
     @Inject
     lateinit var testBasicService: TestBasicService
 

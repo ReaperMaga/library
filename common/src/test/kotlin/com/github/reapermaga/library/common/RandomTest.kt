@@ -3,7 +3,6 @@ package com.github.reapermaga.library.common
 import kotlin.test.Test
 
 class RandomTest {
-
     @Test
     fun `Test random unique`() {
         val list = listOf("a", "b")
@@ -26,5 +25,8 @@ class RandomTest {
         }
     }
 
-    class Item(val name: String, override var chance: Double) : RandomChanceItem
+    class Item(
+        val name: String,
+        override var chance: Double,
+    ) : RandomChanceItem
 }

@@ -1,8 +1,6 @@
 package com.github.reapermaga.library.kdi
 
-
 class EntityRegistry {
-
     internal val entities = mutableListOf<Entity>()
 
     /**
@@ -56,9 +54,7 @@ class EntityRegistry {
      * @param entityClass The class of the entity
      * @return The entity or null if not found
      */
-    fun getEntity(entityClass: Class<*>): Entity? {
-        return entities.find { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
-    }
+    fun getEntity(entityClass: Class<*>): Entity? = entities.find { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
 
     /**
      * Get all entities by class or interface
@@ -66,18 +62,19 @@ class EntityRegistry {
      * @param entityClass The class of the entity
      * @return The entities or an empty list if not found
      */
-    fun getEntities(entityClass: Class<*>): List<Entity> {
-        return entities.filter { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
-    }
+    fun getEntities(entityClass: Class<*>): List<Entity> = entities.filter { it.instance::class.java == entityClass || entityClass.isAssignableFrom(it.instance::class.java) }
 
-    fun getEntitiesByTypeAnnotation(annotation: Class<out Annotation>): List<Entity> {
-        return entities.filter { it.instance::class.java.isAnnotationPresent(annotation) }
-    }
+    fun getEntitiesByTypeAnnotation(annotation: Class<out Annotation>): List<Entity> =
+        entities.filter {
+            it.instance::class.java.isAnnotationPresent(annotation)
+        }
 
-    fun getEntitiesInstancesByTypeAnnotation(annotation: Class<out Annotation>): List<Any> {
-        return getEntitiesByTypeAnnotation(annotation).map { it.instance }
-    }
-
+    fun getEntitiesInstancesByTypeAnnotation(annotation: Class<out Annotation>): List<Any> =
+        getEntitiesByTypeAnnotation(annotation).map {
+            it.instance
+        }
 }
 
-data class Entity(val instance: Any)
+data class Entity(
+    val instance: Any,
+)

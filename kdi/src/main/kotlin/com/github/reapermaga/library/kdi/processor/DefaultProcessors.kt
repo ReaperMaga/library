@@ -2,8 +2,9 @@ package com.github.reapermaga.library.kdi.processor
 
 import com.github.reapermaga.library.kdi.*
 
-class InjectProcessor(override val entityRegistry: EntityRegistry) : AbstractProcessor() {
-
+class InjectProcessor(
+    override val entityRegistry: EntityRegistry,
+) : AbstractProcessor() {
     override fun process(entity: Entity) {
         entity.instance::class.java.declaredFields.forEach { field ->
             if (field.isAnnotationPresent(Inject::class.java)) {
@@ -16,12 +17,12 @@ class InjectProcessor(override val entityRegistry: EntityRegistry) : AbstractPro
         }
     }
 
-
     override fun getPriority(): Int = 1
 }
 
-class PostStartupProcessor(override val entityRegistry: EntityRegistry) : AbstractProcessor() {
-
+class PostStartupProcessor(
+    override val entityRegistry: EntityRegistry,
+) : AbstractProcessor() {
     override fun process(entity: Entity) {
         entity.instance::class.java.declaredMethods.forEach { method ->
             if (method.isAnnotationPresent(PostStartup::class.java)) {
@@ -34,8 +35,9 @@ class PostStartupProcessor(override val entityRegistry: EntityRegistry) : Abstra
     override fun getPriority(): Int = 5
 }
 
-class StartupProcessor(override val entityRegistry: EntityRegistry) : AbstractProcessor() {
-
+class StartupProcessor(
+    override val entityRegistry: EntityRegistry,
+) : AbstractProcessor() {
     override fun process(entity: Entity) {
         entity.instance::class.java.declaredMethods.forEach { method ->
             if (method.isAnnotationPresent(Startup::class.java)) {
@@ -48,8 +50,9 @@ class StartupProcessor(override val entityRegistry: EntityRegistry) : AbstractPr
     override fun getPriority(): Int = 10
 }
 
-class ShutdownProcessor(override val entityRegistry: EntityRegistry) : AbstractProcessor() {
-
+class ShutdownProcessor(
+    override val entityRegistry: EntityRegistry,
+) : AbstractProcessor() {
     private val methods = mutableListOf<() -> Unit>()
 
     override fun process(entity: Entity) {
