@@ -9,8 +9,8 @@ class SourceSetEntry(val name: String, val version: String) {
 }
 
 val sourceSetEntries = listOf<SourceSetEntry>(
-    SourceSetEntry("gson", "0.1.0"),
-    SourceSetEntry("hocon", "0.1.0")
+    SourceSetEntry("gson", "0.2.0"),
+    SourceSetEntry("hocon", "0.2.0")
 )
 
 version = "0.1.0"
@@ -48,12 +48,12 @@ repositories {
 
 dependencies {
     // Gson dependencies
-    implementation("gson", "com.google.code.gson:gson:2.12.1")
+    implementation("gson", "com.google.code.gson:gson:2.13.1")
     compileOnly("gson", sourceSets["main"].output)
     compileOnly("gson", project(":common"))
 
     // Hocon dependencies
-    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.8.0")
+    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.9.0")
 
     // Test dependencies
     testImplementation(kotlin("test"))
@@ -67,10 +67,10 @@ kotlin {
 }
 
 // Functions
-fun DependencyHandlerScope.implementation(child : String, dependency : Any) {
+fun DependencyHandlerScope.implementation(child: String, dependency: Any) {
     add("${child}Implementation", dependency)
 }
 
-fun DependencyHandlerScope.compileOnly(child : String, dependency : Any) {
+fun DependencyHandlerScope.compileOnly(child: String, dependency: Any) {
     add("${child}CompileOnly", dependency)
 }

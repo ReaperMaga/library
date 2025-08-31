@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  * @property entity The entity that is stored in the file.
  * @property file The file that contains the entity.
  */
-open class HoconFile<T:Any>(val path : String, val type : KClass<T>) {
+open class HoconFile<T : Any>(val path: String, val type: KClass<T>) {
 
     val file by lazy(LazyThreadSafetyMode.NONE) {
         File(path).apply {
@@ -30,10 +30,12 @@ open class HoconFile<T:Any>(val path : String, val type : KClass<T>) {
         }
     }
 
-    private var internalEntity : T? = null
+    val exists get() = file.exists()
+
+    private var internalEntity: T? = null
 
     var entity: T
-        get() = internalEntity!!
+        get() = internalEntity ?: error("Entity not loaded. Call load() first.")
         set(value) {
             internalEntity = value
         }
@@ -67,11 +69,6 @@ open class HoconFile<T:Any>(val path : String, val type : KClass<T>) {
     fun delete() {
         file.delete()
     }
-
-    /**
-     * Checks if the file exists.
-     */
-    fun exists() = file.exists()
 
 }
 

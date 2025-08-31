@@ -15,28 +15,29 @@ import kotlin.reflect.KClass
  * @param type The type of the entities.
  * @property directory The directory where the files are stored.
  */
-open class GsonRepository<T:Any, ID>(val path : String, val type : KClass<T>):Repository<T, ID>, AsyncRepository<T, ID> {
+open class GsonRepository<T : Any, ID>(val path: String, val type: KClass<T>) : Repository<T, ID>,
+    AsyncRepository<T, ID> {
 
     val directory = File(path).apply { if (!exists()) mkdirs() }
 
-    override fun persist(entity : T) {
+    override fun persist(entity: T) {
         save(entity)
     }
 
-    override fun save(entity : T) {
+    override fun save(entity: T) {
         val id = retrieveId(entity)
         val wrapper = getWrapper(id)
         wrapper.entity = entity
         wrapper.save()
     }
 
-    override fun findById(id : ID) : T? {
+    override fun findById(id: ID): T? {
         val wrapper = getWrapper(id)
         wrapper.load()
-        return if (wrapper.exists()) wrapper.entity else null
+        return if (wrapper.exists) wrapper.entity else null
     }
 
-    override fun findAll() : Collection<T> {
+    override fun findAll(): Collection<T> {
         val list = mutableListOf<T>()
         directory.listFiles()?.forEach {
             val wrapper = GsonFile<T>(it.path, TypeToken.get(type.java))
@@ -46,7 +47,7 @@ open class GsonRepository<T:Any, ID>(val path : String, val type : KClass<T>):Re
         return list
     }
 
-    override fun deleteById(id : ID) {
+    override fun deleteById(id: ID) {
         val wrapper = getWrapper(id)
         wrapper.delete()
     }
@@ -55,53 +56,53 @@ open class GsonRepository<T:Any, ID>(val path : String, val type : KClass<T>):Re
         directory.listFiles()?.forEach { it.delete() }
     }
 
-    override fun existsById(id : ID) : Boolean {
+    override fun existsById(id: ID): Boolean {
         return getWrapper(id).file.exists()
     }
 
-    override fun count() : Long {
+    override fun count(): Long {
         return directory.listFiles()?.size?.toLong() ?: 0
     }
 
-    private fun getWrapper(id : ID) : GsonFile<T> {
+    private fun getWrapper(id: ID): GsonFile<T> {
         return GsonFile("$path${id.toString()}.json", TypeToken.get(type.java))
     }
 
-    override fun persistAsync(entity : T) : CompletableFuture<Void> {
+    override fun persistAsync(entity: T): CompletableFuture<Void> {
         return saveAsync(entity)
     }
 
-    override fun saveAsync(entity : T) : CompletableFuture<Void> {
+    override fun saveAsync(entity: T): CompletableFuture<Void> {
         return CompletableFuture.runAsync { save(entity) }
     }
 
-    override fun findByIdAsync(id : ID) : CompletableFuture<T?> {
+    override fun findByIdAsync(id: ID): CompletableFuture<T?> {
         return CompletableFuture.supplyAsync { findById(id) }
     }
 
-    override fun findAllAsync() : CompletableFuture<Collection<T>> {
+    override fun findAllAsync(): CompletableFuture<Collection<T>> {
         return CompletableFuture.supplyAsync { findAll() }
     }
 
-    override fun deleteByIdAsync(id : ID) : CompletableFuture<Long> {
+    override fun deleteByIdAsync(id: ID): CompletableFuture<Long> {
         return CompletableFuture.supplyAsync {
             deleteById(id)
             1
         }
     }
 
-    override fun deleteAllAsync() : CompletableFuture<Long> {
+    override fun deleteAllAsync(): CompletableFuture<Long> {
         return CompletableFuture.supplyAsync {
             deleteAll()
             count()
         }
     }
 
-    override fun existsByIdAsync(id : ID) : CompletableFuture<Boolean> {
+    override fun existsByIdAsync(id: ID): CompletableFuture<Boolean> {
         return CompletableFuture.supplyAsync { existsById(id) }
     }
 
-    override fun countAsync() : CompletableFuture<Long> {
+    override fun countAsync(): CompletableFuture<Long> {
         return CompletableFuture.supplyAsync { count() }
     }
 }

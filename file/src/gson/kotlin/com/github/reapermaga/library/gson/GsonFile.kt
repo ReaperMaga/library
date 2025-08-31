@@ -16,9 +16,9 @@ import java.io.FileReader
  * @property gson The Gson instance used to serialize and deserialize the entity.
  * @property gsonBuilder The GsonBuilder used to create the Gson instance.
  */
-open class GsonFile<T>(val path : String, val type : TypeToken<T>) {
+open class GsonFile<T>(val path: String, val type: TypeToken<T>) {
 
-    protected open val gsonBuilder : GsonBuilder = GsonBuilder()
+    protected open val gsonBuilder: GsonBuilder = GsonBuilder()
         .setPrettyPrinting()
 
     private val gson by lazy(LazyThreadSafetyMode.NONE) { gsonBuilder.create() }
@@ -34,10 +34,12 @@ open class GsonFile<T>(val path : String, val type : TypeToken<T>) {
         }
     }
 
-    private var internalEntity : T? = null
+    val exists get() = file.exists()
+
+    private var internalEntity: T? = null
 
     var entity: T
-        get() = internalEntity!!
+        get() = internalEntity ?: error("Entity not loaded. Call load() first.")
         set(value) {
             internalEntity = value
         }
@@ -63,11 +65,4 @@ open class GsonFile<T>(val path : String, val type : TypeToken<T>) {
     fun delete() {
         file.delete()
     }
-
-    /**
-     * Checks if the file exists.
-     */
-    fun exists() = file.exists()
-
 }
-
