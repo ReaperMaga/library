@@ -8,7 +8,9 @@ plugins {
     id("org.kordamp.gradle.jandex") version "2.1.0"
 }
 
-
+tasks.named("quarkusDependenciesBuild") {
+    dependsOn(tasks.named("jandex"))
+}
 
 tasks.withType<GenerateModuleMetadata> {
     // The value 'enforced-platform' is provided in the validation
@@ -33,7 +35,7 @@ dependencies {
     implementation("io.rest-assured:rest-assured")
 }
 
-version = "0.1.5"
+version = "0.1.6"
 
 kotlin {
     jvmToolchain(21)

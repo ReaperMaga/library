@@ -53,7 +53,7 @@ dependencies {
     compileOnly("gson", project(":common"))
 
     // Hocon dependencies
-    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.9.0")
+    implementation("hocon", "org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.8.0")
 
     // Test dependencies
     testImplementation(kotlin("test"))
