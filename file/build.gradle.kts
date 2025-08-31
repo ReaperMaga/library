@@ -13,7 +13,7 @@ class SourceSetEntry(
 
 val sourceSetEntries =
     listOf<SourceSetEntry>(
-        SourceSetEntry("gson", "0.2.0"),
+        SourceSetEntry("gson", "0.3.0"),
         SourceSetEntry("hocon", "0.2.0"),
     )
 

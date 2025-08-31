@@ -9,13 +9,15 @@ import java.util.concurrent.CompletableFuture
  * @param T Entity type.
  * @param ID Entity ID type.
  */
-open class LocalRepository<T, ID> :
+abstract class LocalRepository<T, ID> :
     Repository<T, ID>,
     AsyncRepository<T, ID> {
     val entities = mutableMapOf<ID, T>()
 
+    protected abstract val idSelector: (T) -> ID
+
     override fun persist(entity: T) {
-        val id = retrieveId(entity)
+        val id = idSelector(entity)
         if (id != null) {
             entities[id] = entity
         }
@@ -70,7 +72,3 @@ open class LocalRepository<T, ID> :
 
     override fun countAsync(): CompletableFuture<Long> = CompletableFuture.completedFuture(count())
 }
-
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD)
-annotation class Id

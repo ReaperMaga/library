@@ -1,6 +1,5 @@
 package com.github.reapermaga.library.common
 
-import com.github.reapermaga.library.common.repository.Id
 import com.github.reapermaga.library.common.repository.LocalRepository
 import com.github.reapermaga.library.common.repository.Repository
 import org.junit.jupiter.api.Test
@@ -46,9 +45,11 @@ interface UserRepository : Repository<User, String>
 
 class LocalUserRepository :
     LocalRepository<User, String>(),
-    UserRepository
+    UserRepository {
+    override val idSelector: (User) -> String = { it.id }
+}
 
 data class User(
-    @Id val id: String,
+    val id: String,
     val email: String,
 )

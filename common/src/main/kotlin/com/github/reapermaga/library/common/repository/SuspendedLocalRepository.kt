@@ -5,8 +5,10 @@ abstract class SuspendedLocalRepository<T : Any, ID> :
     SuspendedRepository<T, ID> {
     val entities = mutableMapOf<ID, T>()
 
+    protected abstract val idSelector: (T) -> ID
+
     override fun persist(entity: T) {
-        val id = retrieveId(entity)
+        val id = idSelector(entity)
         if (id != null) {
             entities[id] = entity
         }

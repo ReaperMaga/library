@@ -2,7 +2,6 @@ package com.github.reapermaga.library.gson
 
 import com.github.reapermaga.library.common.repository.AsyncRepository
 import com.github.reapermaga.library.common.repository.Repository
-import com.github.reapermaga.library.common.repository.retrieveId
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.util.concurrent.CompletableFuture
@@ -15,19 +14,21 @@ import kotlin.reflect.KClass
  * @param type The type of the entities.
  * @property directory The directory where the files are stored.
  */
-open class GsonRepository<T : Any, ID>(
+abstract class GsonRepository<T : Any, ID>(
     val path: String,
     val type: KClass<T>,
 ) : Repository<T, ID>,
     AsyncRepository<T, ID> {
     val directory = File(path).apply { if (!exists()) mkdirs() }
 
+    protected abstract val idSelector: (T) -> ID
+
     override fun persist(entity: T) {
         save(entity)
     }
 
     override fun save(entity: T) {
-        val id = retrieveId(entity)
+        val id = idSelector(entity)
         val wrapper = getWrapper(id)
         wrapper.entity = entity
         wrapper.save()
