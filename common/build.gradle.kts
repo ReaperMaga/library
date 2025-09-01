@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-version = "0.3.0"
+version = "0.3.1"
 
 val guavaDependency = "com.google.guava:guava:33.4.8-jre"
 

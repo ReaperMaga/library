@@ -2,6 +2,15 @@ package com.github.reapermaga.library.common.repository
 
 import com.google.common.cache.CacheBuilder
 
+/**
+ * A cached implementation of the Repository interface that adds caching capabilities to an existing repository.
+ *
+ * @param T The type of the entity managed by this repository.
+ * @param ID The type of the identifier for the entity.
+ * @property base The underlying repository to which operations are delegated.
+ * @property cacheConfig A lambda to configure the cache settings using CacheBuilder.
+ * @property performanceMode If true, read operations will only interact with the cache, not the base repository.
+ */
 abstract class CachedRepository<T : Any, ID : Any>(
     private val base: Repository<T, ID>,
     private val cacheConfig: CacheBuilder<Any, Any>.() -> Unit = {},
